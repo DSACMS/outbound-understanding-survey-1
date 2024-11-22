@@ -4,13 +4,13 @@ This is a list of maintainers for this project. See [CODEOWNERS.md](./CODEOWNERS
 
 ## Maintainers:
 <!-- TODO: What groups/domains are maintainers a part of? Does your project have domains/areas that are maintained by specific people? List @USERNAMES directly, or any @ALIASES for groups/teams.-->
-- 
+- @natalialuzuriaga
 
 ## Approvers:
-- 
+- @natalialuzuriaga
 
 ## Reviewers:
-- 
+- @natalialuzuriaga
 
 | Roles        | Responsibilities| Requirements  | Defined by|
 | -------------|:---------------|:-------------|:-------------|
