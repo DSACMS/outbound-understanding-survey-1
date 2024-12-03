@@ -23,6 +23,7 @@
     <body>
         <div id="formio"></div>
         <script src="js/generateFormComponents.js"></script>
+        <script src="js/formDataToJson.js"></script>
         <script type="text/javascript">
             createFormComponents().then(components => {
                 Formio.createForm(document.getElementById('formio'), {
@@ -35,6 +36,12 @@
                         }
                     },
                     "components": components
+                })
+                .then(function(form) {
+                    form.on('submit', function(submission) {
+                        console.log("form submission here:", submission);
+                        downloadFile(submission.data);
+                    });
                 })
             })
             .catch(error => {
