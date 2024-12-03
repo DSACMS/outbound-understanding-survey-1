@@ -22,8 +22,10 @@
     </head>
     <body>
         <div id="formio"></div>
+        <script src="js/generateFormComponents.js"></script>
         <script type="text/javascript">
-            Formio.createForm(document.getElementById('formio'), {
+            createFormComponents().then(components => {
+                Formio.createForm(document.getElementById('formio'), {
                     "display": "form",
                     "theme": "primary",
                     "settings": {
@@ -32,8 +34,12 @@
                             "src": "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0"
                         }
                     },
-                    "components": []
+                    "components": components
                 })
+            })
+            .catch(error => {
+                console.error("Error creating components:", error);
+            });
         </script>
     </body>
 </html>
