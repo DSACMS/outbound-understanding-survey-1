@@ -36,7 +36,7 @@ async function populateCodeJson(data) {
 	// Path to the blank json file
 	const filePath = "schemas/template-code.json";
 
-	var codeJson = await retrieveFile(filePath);
+	let codeJson = await retrieveFile(filePath);
 
 	if (codeJson) {
 		populateObject(data, codeJson);

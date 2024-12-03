@@ -36,11 +36,11 @@ function createComponent(fieldName, fieldObject) {
 
 // Iterates through each json field and creates component array for Form.io
 async function createFormComponents() {
-	var components = [];
-	var formFields = {};
+	let components = [];
+	let formFields = {};
 
-	var filePath = "schemas/schema.json";
-	var jsonData = await retrieveFile(filePath);
+	const filePath = "schemas/schema.json";
+	let jsonData = await retrieveFile(filePath);
 	console.log("JSON Data:", jsonData);
 
 	formFields = jsonData["properties"];
