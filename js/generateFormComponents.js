@@ -15,12 +15,34 @@ async function retrieveFile(filePath) {
 	}
 }
 
-// Creates Form.io component based on json fields
-// Supports text field for now
-// TODO: Create components for number, select, and multi-select
+function transformArrayToOptions(arr) {
+	return arr.map((item) => ({
+		label: item.toString(),
+		value: item.toString(),
+	}));
+}
+
+function determineType(field) {
+	if (field.type === "array") {
+		// TODO: Implement multi-select fields
+		if (field.items.hasOwnProperty("enum")) {
+			return "selectboxes";
+		}
+		return "array-textfield";
+	} else if (field.hasOwnProperty("enum")) {
+		return "radio";
+	} else if (field.type === "number") {
+		return "number";
+	} else if (field.type === "string") {
+		return "textfield";
+	}
+}
+
+// Creates Form.io component based on json field type
 function createComponent(fieldName, fieldObject) {
-	switch (fieldObject["type"]) {
-		case "string":
+	var componentType = determineType(fieldObject);
+	switch (componentType) {
+		case "textfield":
 			return {
 				type: "textfield",
 				key: fieldName,
@@ -28,6 +50,36 @@ function createComponent(fieldName, fieldObject) {
 				input: true,
 				tooltip: fieldObject["description"],
 				description: fieldObject["description"],
+			};
+		case "number":
+			return {
+				label: fieldName,
+				applyMaskOn: "change",
+				mask: false,
+				tableView: false,
+				delimiter: false,
+				requireDecimal: false,
+				inputFormat: "plain",
+				truncateMultipleSpaces: false,
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "number",
+				input: true,
+				description: fieldObject["description"],
+			};
+		case "radio":
+			var options = transformArrayToOptions(fieldObject.enum);
+			console.log("checking options here:", options);
+			return {
+				label: fieldName,
+				optionsLabelPosition: "right",
+				inline: false,
+				tableView: false,
+				values: options,
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "radio",
+				input: true,
 			};
 		default:
 			break;
