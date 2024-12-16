@@ -4,5 +4,6 @@
 	"status": "",
 	"organization": "",
 	"vcs": "",
-	"laborHours": 0
+	"laborHours": 0,
+	"platforms": [ "" ]
 }

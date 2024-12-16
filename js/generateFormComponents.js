@@ -81,6 +81,20 @@ function createComponent(fieldName, fieldObject) {
 				type: "radio",
 				input: true,
 			};
+		case "selectboxes":
+			var options = transformArrayToOptions(fieldObject.items.enum);
+			console.log("checking options here:", options);
+			return {
+				label: fieldName,
+				optionsLabelPosition: "right",
+				tableView: false,
+				values: options,
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "selectboxes",
+				input: true,
+				inputType: "checkbox"
+			};
 		default:
 			break;
 	}

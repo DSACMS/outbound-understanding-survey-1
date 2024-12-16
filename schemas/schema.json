@@ -38,6 +38,14 @@
 		"laborHours": {
 			"type": "number",
 			"description": "Labor hours invested in the project"
+		},
+		"platforms": {
+			"type": "array",
+			"description": "Platforms supported by the project",
+			"items": {
+				"type": "string",
+				"enum": ["web", "windows", "mac", "linux", "ios", "android", "other"]
+			}
 		}
 	}
 }
