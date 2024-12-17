@@ -5,5 +5,9 @@
 	"organization": "",
 	"vcs": "",
 	"laborHours": 0,
-	"platforms": [ "" ]
+	"platforms": [""],
+	"categories": [""],
+	"softwareType": [""],
+	"languages": [""],
+	"maintenance": ""
 }
