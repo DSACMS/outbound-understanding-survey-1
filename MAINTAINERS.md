@@ -31,14 +31,14 @@ Total number of contributors: <!--CONTRIBUTOR COUNT START--> <!--CONTRIBUTOR COU
 		<tr>
             <td align="center">
                 <a href="https://github.com/natalialuzuriaga">
-                    <img src="https://avatars.githubusercontent.com/u/29980737?v=4" width="100;" alt="natalialuzuriaga"/>
+                    <img src="https://private-avatars.githubusercontent.com/u/29980737?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ2MzM1NDAsIm5iZiI6MTczNDYzMjM0MCwicGF0aCI6Ii91LzI5OTgwNzM3In0.uyAAKzOA7APZfbCfXFSdUvCDV2zyzRP12vN4Ps6X2T4&v=4" width="100;" alt="natalialuzuriaga"/>
                     <br />
                     <sub><b>Natalia Luzuriaga</b></sub>
                 </a>
             </td>
             <td align="center">
                 <a href="https://github.com/decause-gov">
-                    <img src="https://avatars.githubusercontent.com/u/107957201?v=4" width="100;" alt="decause-gov"/>
+                    <img src="https://private-avatars.githubusercontent.com/u/107957201?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MzQ2MzMzNjAsIm5iZiI6MTczNDYzMjE2MCwicGF0aCI6Ii91LzEwNzk1NzIwMSJ9.Ep6JOnX0g8_Nlenxb5au4q500aOEhZZwmGbLrFgvTX4&v=4" width="100;" alt="decause-gov"/>
                     <br />
                     <sub><b>decause-gov</b></sub>
                 </a>
