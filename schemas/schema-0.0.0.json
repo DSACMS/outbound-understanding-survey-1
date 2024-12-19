@@ -227,7 +227,7 @@
             },
             "repositoryType": {
                 "type": "string",
-                "description": "Format of repository",
+                "description": "Purpose and functionality of the repository",
                 "enum": [
                     "package",
                     "website",
