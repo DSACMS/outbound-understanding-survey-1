@@ -317,6 +317,7 @@
         "status",
         "permissions",
         "organization",
+        "repositoryURL",
         "vcs",
         "laborHours",
         "platforms",

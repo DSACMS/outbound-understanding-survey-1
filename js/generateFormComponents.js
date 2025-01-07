@@ -58,7 +58,7 @@ function createComponent(fieldName, fieldObject) {
 				label: fieldName,
 				input: true,
 				tooltip: fieldObject["description"],
-				description: fieldObject["description"],
+				description: fieldObject["description"]
 			};
 		case "tags":
 			return {
@@ -219,7 +219,6 @@ function createAllComponents(schema, prefix = ""){
 // Iterates through each json field and creates component array for Form.io
 async function createFormComponents() {
 	let components = [];
-	let formFields = {};
 
 	const filePath = "schemas/schema.json";
 	let jsonData = await retrieveFile(filePath);
