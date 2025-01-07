@@ -42,7 +42,7 @@
                         "items": {
                             "type": "object",
                             "properties": {
-                                "url": {
+                                "URL": {
                                     "type": "string",
                                     "format": "uri",
                                     "description": "The URL of the release license"
@@ -109,6 +109,11 @@
                 "enum": [
                     "Centers for Medicare & Medicaid Services"
                 ]
+            },
+            "repositoryURL": {
+                "type": "string",
+                "format": "uri",
+                "description": "The URL of the public release repository for open source repositories. This field is not required for repositories that are only available as government-wide reuse or are closed (pursuant to one of the exemptions)."
             },
             "vcs": {
                 "type": "string",
