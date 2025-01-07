@@ -23,7 +23,9 @@ function transformArrayToOptions(arr) {
 }
 
 function determineType(field) {
-	if (field.type === "array") {
+	if (field.type === "object") {
+		return "container";
+	} else if (field.type === "array") {
 		// Multi-select
 		if (field.items.hasOwnProperty("enum")) {
 			return "selectboxes";
@@ -148,7 +150,7 @@ function createComponent(fieldName, fieldObject) {
 					"maxDate": null
 				},
 				description: fieldObject["description"]
-			}
+			};
 		case "select-boolean":
 			return {
 				"label": fieldName,
@@ -171,7 +173,17 @@ function createComponent(fieldName, fieldObject) {
 				"type": "select",
 				"input": true,
 				description: fieldObject["description"]
-			}
+			};
+		case "container": 
+			return {
+				label: fieldName,
+				tableView: false,
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "container",
+				input: true,
+				components: []
+			};
 		default:
 			break;
 	}
@@ -180,6 +192,28 @@ function createComponent(fieldName, fieldObject) {
 function createFormHeading(title, description) {
 	const container = document.getElementById('form-header');
 	container.innerHTML = `<h1>${title}</h1>\n<h2>${description}</h2>`;
+}
+
+function createAllComponents(schema, prefix = ""){
+	let components = [];
+
+	console.log("checking schema", schema);
+
+	if (schema.type === "object" && schema.properties) {
+        for (const [key, value] of Object.entries(schema.properties)) {
+            
+			const fullKey = prefix ? `${prefix}.${key}` : key;
+
+			var fieldComponent = createComponent(key, value);
+
+			if (fieldComponent.type === "container") {
+				fieldComponent.components = createAllComponents(value, fullKey);
+			}
+			components.push(fieldComponent);
+        }
+    }
+
+    return components;
 }
 
 // Iterates through each json field and creates component array for Form.io
@@ -193,14 +227,7 @@ async function createFormComponents() {
 
 	createFormHeading(jsonData["title"], jsonData["description"]);
 
-	formFields = jsonData["properties"];
-	console.log("form Fields:", formFields);
-
-	for (const key in formFields) {
-		console.log(`${key}:`, formFields[key]);
-		var fieldComponent = createComponent(key, formFields[key]);
-		components.push(fieldComponent);
-	}
+	components = createAllComponents(jsonData);
 
 	// Add submit button to form
 	components.push({

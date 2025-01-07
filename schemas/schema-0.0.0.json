@@ -182,6 +182,7 @@
             },
             "date": {
                 "type": "object",
+                "description": "A date object describing the release",
                 "properties": {
                     "created": {
                         "type": "string",
@@ -209,6 +210,7 @@
             },
             "contact": {
                 "type": "object",
+                "description": "Point of contact for the release",
                 "properties": {
                     "email": {
                         "type": "string",
