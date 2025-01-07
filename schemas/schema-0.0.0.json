@@ -293,7 +293,7 @@
                 "description": "Location where source code is hosted",
                 "enum": [
                     "github.com/CMSgov",
-                    "github.com/CMSgov",
+                    "github.com/CMS-Enterprise",
                     "github.cms.gov",
                     "CCSQ GitHub"
                 ]
