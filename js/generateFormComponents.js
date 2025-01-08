@@ -26,6 +26,10 @@ function determineType(field) {
 	if (field.type === "object") {
 		return "container";
 	} else if (field.type === "array") {
+		// Array of objects
+		if (field.items.type === "object") {
+			return "datagrid"
+		}
 		// Multi-select
 		if (field.items.hasOwnProperty("enum")) {
 			return "selectboxes";
@@ -100,7 +104,8 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				type: "radio",
 				input: true,
-				description: fieldObject["description"]
+				description: fieldObject["description"],
+				tooltip: fieldObject["description"]
 			};
 		case "selectboxes":
 			var options = transformArrayToOptions(fieldObject.items.enum);
@@ -184,6 +189,24 @@ function createComponent(fieldName, fieldObject) {
 				input: true,
 				components: []
 			};
+		case "datagrid":
+			return {
+				label: fieldName,
+				reorder: false,
+				addAnotherPosition: "bottom",
+				layoutFixed: false,
+				enableRowGroups: false,
+				initEmpty: false,
+				tableView: false,
+				defaultValue: [
+					{}
+				],
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "datagrid",
+				input: true,
+				components: []
+			}; 
 		default:
 			break;
 	}
@@ -197,7 +220,6 @@ function createFormHeading(title, description) {
 function createAllComponents(schema, prefix = ""){
 	let components = [];
 
-	console.log("checking schema", schema);
 
 	if (schema.type === "object" && schema.properties) {
         for (const [key, value] of Object.entries(schema.properties)) {
@@ -208,7 +230,10 @@ function createAllComponents(schema, prefix = ""){
 
 			if (fieldComponent.type === "container") {
 				fieldComponent.components = createAllComponents(value, fullKey);
+			} else if (fieldComponent.type === "datagrid") {
+				fieldComponent.components = createAllComponents(value.items, fullKey);
 			}
+			
 			components.push(fieldComponent);
         }
     }
