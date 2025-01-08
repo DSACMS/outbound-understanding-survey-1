@@ -212,11 +212,13 @@ function createComponent(fieldName, fieldObject) {
 	}
 }
 
+// Adds heading containing schema information
 function createFormHeading(title, description) {
 	const container = document.getElementById('form-header');
 	container.innerHTML = `<h1>${title}</h1>\n<h2>${description}</h2>`;
 }
 
+// Iterates through each json field and creates component array for Form.io
 function createAllComponents(schema, prefix = ""){
 	let components = [];
 
@@ -226,6 +228,7 @@ function createAllComponents(schema, prefix = ""){
 
         for (const [key, value] of Object.entries(items)) {
             
+			console.log("key at play:", key);
 			const fullKey = prefix ? `${prefix}.${key}` : key;
 
 			var fieldComponent = createComponent(key, value);
@@ -244,7 +247,7 @@ function createAllComponents(schema, prefix = ""){
     return components;
 }
 
-// Iterates through each json field and creates component array for Form.io
+// Creates complete form based on input json schema
 async function createFormComponents() {
 	let components = [];
 
