@@ -42,11 +42,6 @@
                         "items": {
                             "type": "object",
                             "properties": {
-                                "URL": {
-                                    "type": "string",
-                                    "format": "uri",
-                                    "description": "The URL of the release license"
-                                },
                                 "name": {
                                     "type": "string",
                                     "enum": [
@@ -66,11 +61,16 @@
                                         "None"
                                     ],
                                     "description": "An abbreviation for the name of the license"
+                                },
+                                "URL": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "description": "The URL of the release license"
                                 }
                             },
                             "required": [
-                                "url",
-                                "name"
+                                "name",
+                                "URL"
                             ]
                         }
                     },
