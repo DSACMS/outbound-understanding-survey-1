@@ -23,7 +23,9 @@ function transformArrayToOptions(arr) {
 }
 
 function determineType(field) {
-	if (field.type === "array") {
+	if (field.type === "object") {
+		return "container";
+	} else if (field.type === "array") {
 		// Multi-select
 		if (field.items.hasOwnProperty("enum")) {
 			return "selectboxes";
@@ -56,7 +58,7 @@ function createComponent(fieldName, fieldObject) {
 				label: fieldName,
 				input: true,
 				tooltip: fieldObject["description"],
-				description: fieldObject["description"],
+				description: fieldObject["description"]
 			};
 		case "tags":
 			return {
@@ -83,7 +85,7 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				type: "number",
 				input: true,
-				description: fieldObject["description"],
+				description: fieldObject["description"]
 			};
 		case "radio":
 			var options = transformArrayToOptions(fieldObject.enum);
@@ -117,61 +119,71 @@ function createComponent(fieldName, fieldObject) {
 			};
 		case "datetime":
 			return {
-				"label": fieldName,
-				"tableView": false,
-				"datePicker": {
-					"disableWeekends": false,
-					"disableWeekdays": false
+				label: fieldName,
+				tableView: false,
+				datePicker: {
+					disableWeekends: false,
+					disableWeekdays: false
 				},
-				"enableMinDateInput": false,
-				"enableMaxDateInput": false,
-				"validateWhenHidden": false,
-				"key": fieldName,
-				"type": "datetime",
-				"input": true,
-				"widget": {
-					"type": "calendar",
-					"displayInTimezone": "viewer",
-					"locale": "en",
-					"useLocaleSettings": false,
-					"allowInput": true,
-					"mode": "single",
-					"enableTime": true,
-					"noCalendar": false,
-					"format": "yyyy-MM-dd hh:mm a",
-					"hourIncrement": 1,
-					"minuteIncrement": 1,
-					"time_24hr": false,
-					"minDate": null,
-					"disableWeekends": false,
-					"disableWeekdays": false,
-					"maxDate": null
+				enableMinDateInput: false,
+				enableMaxDateInput: false,
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "datetime",
+				input: true,
+				widget: {
+					type: "calendar",
+					displayInTimezone: "viewer",
+					locale: "en",
+					useLocaleSettings: false,
+					allowInput: true,
+					mode: "single",
+					enableTime: true,
+					noCalendar: false,
+					format: "yyyy-MM-dd hh:mm a",
+					hourIncrement: 1,
+					minuteIncrement: 1,
+					time_24hr: false,
+					minDate: null,
+					disableWeekends: false,
+					disableWeekdays: false,
+					maxDate: null
 				},
 				description: fieldObject["description"]
-			}
+			};
 		case "select-boolean":
 			return {
-				"label": fieldName,
-				"widget": "html5",
-				"tableView": true,
-				"data": {
-					"values": [
+				label: fieldName,
+				widget: "html5",
+				tableView: true,
+				data: {
+					values: [
 						{
-							"label": "True",
-							"value": "true"
+							label: "True",
+							value: "true"
 						},
 						{
-							"label": "False",
-							"value": "false"
+							label: "False",
+							value: "false"
 						}
 					]
 				},
-				"validateWhenHidden": false,
-				"key": fieldName,
-				"type": "select",
-				"input": true,
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "select",
+				input: true,
 				description: fieldObject["description"]
-			}
+			};
+		case "container": 
+			return {
+				label: fieldName,
+				tableView: false,
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "container",
+				input: true,
+				components: []
+			};
 		default:
 			break;
 	}
@@ -182,10 +194,31 @@ function createFormHeading(title, description) {
 	container.innerHTML = `<h1>${title}</h1>\n<h2>${description}</h2>`;
 }
 
+function createAllComponents(schema, prefix = ""){
+	let components = [];
+
+	console.log("checking schema", schema);
+
+	if (schema.type === "object" && schema.properties) {
+        for (const [key, value] of Object.entries(schema.properties)) {
+            
+			const fullKey = prefix ? `${prefix}.${key}` : key;
+
+			var fieldComponent = createComponent(key, value);
+
+			if (fieldComponent.type === "container") {
+				fieldComponent.components = createAllComponents(value, fullKey);
+			}
+			components.push(fieldComponent);
+        }
+    }
+
+    return components;
+}
+
 // Iterates through each json field and creates component array for Form.io
 async function createFormComponents() {
 	let components = [];
-	let formFields = {};
 
 	const filePath = "schemas/schema.json";
 	let jsonData = await retrieveFile(filePath);
@@ -193,14 +226,7 @@ async function createFormComponents() {
 
 	createFormHeading(jsonData["title"], jsonData["description"]);
 
-	formFields = jsonData["properties"];
-	console.log("form Fields:", formFields);
-
-	for (const key in formFields) {
-		console.log(`${key}:`, formFields[key]);
-		var fieldComponent = createComponent(key, formFields[key]);
-		components.push(fieldComponent);
-	}
+	components = createAllComponents(jsonData);
 
 	// Add submit button to form
 	components.push({

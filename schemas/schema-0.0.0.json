@@ -42,7 +42,7 @@
                         "items": {
                             "type": "object",
                             "properties": {
-                                "url": {
+                                "URL": {
                                     "type": "string",
                                     "format": "uri",
                                     "description": "The URL of the release license"
@@ -109,6 +109,11 @@
                 "enum": [
                     "Centers for Medicare & Medicaid Services"
                 ]
+            },
+            "repositoryURL": {
+                "type": "string",
+                "format": "uri",
+                "description": "The URL of the public release repository for open source repositories. This field is not required for repositories that are only available as government-wide reuse or are closed (pursuant to one of the exemptions)."
             },
             "vcs": {
                 "type": "string",
@@ -182,6 +187,7 @@
             },
             "date": {
                 "type": "object",
+                "description": "A date object describing the release",
                 "properties": {
                     "created": {
                         "type": "string",
@@ -209,6 +215,7 @@
             },
             "contact": {
                 "type": "object",
+                "description": "Point of contact for the release",
                 "properties": {
                     "email": {
                         "type": "string",
@@ -286,7 +293,7 @@
                 "description": "Location where source code is hosted",
                 "enum": [
                     "github.com/CMSgov",
-                    "github.com/CMSgov",
+                    "github.com/CMS-Enterprise",
                     "github.cms.gov",
                     "CCSQ GitHub"
                 ]
@@ -310,6 +317,7 @@
         "status",
         "permissions",
         "organization",
+        "repositoryURL",
         "vcs",
         "laborHours",
         "platforms",

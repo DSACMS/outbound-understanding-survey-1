@@ -1,8 +1,10 @@
 {
 	"name": "",
-	"softwareDescription": "",
+	"description": "",
+	"longDescription": "",
 	"status": "",
 	"organization": "",
+	"repositoryURL": "",
 	"vcs": "",
 	"laborHours": 0,
 	"platforms": [""],
@@ -10,6 +12,19 @@
 	"softwareType": [""],
 	"languages": [""],
 	"maintenance": "",
-	"lastModified": "",
-	"localisation": ""
+	"date": [""],
+	"tags": [""],
+	"contact": {
+		"email": "",
+		"name": ""
+	},
+	"localisation": "",
+	"repositoryType": "",
+	"userInput": "",
+	"fismaLevel": "",
+	"group": "",
+	"subsetInHealthcare": "",
+	"userType": "",
+	"repositoryHost": "",
+	"maturityModelTier": ""
 }
