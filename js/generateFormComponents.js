@@ -41,9 +41,9 @@ function determineType(field) {
 		return "radio";
 	} else if (field.type === "number") {
 		return "number";
-	} else if (field.type === "boolean"){
+	} else if (field.type === "boolean") {
 		return "select-boolean";
-	} else if (field.type === "string") {
+	} else if (field.type === "string" || field.type.includes("string")) {
 		if (field.format == "date-time") {
 			return "datetime";
 		}
@@ -220,9 +220,11 @@ function createFormHeading(title, description) {
 function createAllComponents(schema, prefix = ""){
 	let components = [];
 
-
 	if (schema.type === "object" && schema.properties) {
-        for (const [key, value] of Object.entries(schema.properties)) {
+
+		let items = schema.properties.hasOwnProperty("items") ? schema.properties.items : schema.properties
+
+        for (const [key, value] of Object.entries(items)) {
             
 			const fullKey = prefix ? `${prefix}.${key}` : key;
 
@@ -230,10 +232,11 @@ function createAllComponents(schema, prefix = ""){
 
 			if (fieldComponent.type === "container") {
 				fieldComponent.components = createAllComponents(value, fullKey);
-			} else if (fieldComponent.type === "datagrid") {
+			} 
+			else if (fieldComponent.type === "datagrid") {
 				fieldComponent.components = createAllComponents(value.items, fullKey);
 			}
-			
+
 			components.push(fieldComponent);
         }
     }
@@ -245,7 +248,7 @@ function createAllComponents(schema, prefix = ""){
 async function createFormComponents() {
 	let components = [];
 
-	const filePath = "schemas/schema.json";
+	const filePath = "schemas/schema-0.0.0.json";
 	let jsonData = await retrieveFile(filePath);
 	console.log("JSON Data:", jsonData);
 
