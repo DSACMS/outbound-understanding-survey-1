@@ -53,7 +53,7 @@ function determineType(field) {
 
 // Creates Form.io component based on json field type
 function createComponent(fieldName, fieldObject) {
-	var componentType = determineType(fieldObject);
+	const componentType = determineType(fieldObject);
 	switch (componentType) {
 		case "textfield":
 			return {
@@ -61,7 +61,6 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				label: fieldName,
 				input: true,
-				tooltip: fieldObject["description"],
 				description: fieldObject["description"]
 			};
 		case "tags":
@@ -105,7 +104,6 @@ function createComponent(fieldName, fieldObject) {
 				type: "radio",
 				input: true,
 				description: fieldObject["description"],
-				tooltip: fieldObject["description"]
 			};
 		case "selectboxes":
 			var options = transformArrayToOptions(fieldObject.items.enum);
@@ -224,14 +222,14 @@ function createAllComponents(schema, prefix = ""){
 
 	if (schema.type === "object" && schema.properties) {
 
-		let items = schema.properties.hasOwnProperty("items") ? schema.properties.items : schema.properties
+		const items = schema.properties.hasOwnProperty("items") ? schema.properties.items : schema.properties
 
         for (const [key, value] of Object.entries(items)) {
             
 			console.log("key at play:", key);
 			const fullKey = prefix ? `${prefix}.${key}` : key;
 
-			var fieldComponent = createComponent(key, value);
+			let fieldComponent = createComponent(key, value);
 
 			if (fieldComponent.type === "container") {
 				fieldComponent.components = createAllComponents(value, fullKey);
@@ -252,7 +250,7 @@ async function createFormComponents() {
 	let components = [];
 
 	const filePath = "schemas/schema-0.0.0.json";
-	let jsonData = await retrieveFile(filePath);
+	const jsonData = await retrieveFile(filePath);
 	console.log("JSON Data:", jsonData);
 
 	createFormHeading(jsonData["title"], jsonData["description"]);
