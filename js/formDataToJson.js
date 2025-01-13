@@ -35,10 +35,11 @@ function getSelectedOptions(options) {
   return selectedOptions;
 }
 
-// Populates fields with form data and follows field order in schema
+// Populates fields with form data
 function populateObject(data, schema) {
 	let reorderedObject = {}
 
+	// Array of fields following proper order of fields in schema
 	const fields = Object.keys(schema.properties.items);
 
 	for (const key of fields) {
