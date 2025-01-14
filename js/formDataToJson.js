@@ -14,58 +14,62 @@ async function retrieveFile(filePath) {
 	}
 }
 
-// Populates blank code.json object with values from form
-function populateObject(data, blankObject) {
-
-	for (const key in data) {
-		if (blankObject.hasOwnProperty(key)) {
-			console.log(`${key}: ${data[key]}`);
-
-			if(typeof data[key] === "object" && isMultiSelect(data[key])) {
-				blankObject[key] = getSelectedOptions(data[key]);
-			}
-			else {
-				blankObject[key] = data[key];
-			}
-			
-		}
-	}
-}
-
 function isMultiSelect(obj) {
-	  for (const key in obj) {
-		if (typeof obj[key] !== 'boolean') {
-		  return false;
-		}
+	for (const key in obj) {
+	  if (typeof obj[key] !== 'boolean') {
+		return false;
 	  }
-	  return true; // Return true if all values are booleans
+	}
+	return true; // Returns true if all values are booleans
 }
 
 // Convert from dictionary to array
 function getSelectedOptions(options) {
-	let selectedOptions = [];
+  let selectedOptions = [];
 
-	for (let key in options) {
-		if(options[key]) {
-			selectedOptions.push(key);
+  for (let key in options) {
+	  if(options[key]) {
+		  selectedOptions.push(key);
+	  }
+  }
+  return selectedOptions;
+}
+
+// Populates fields with form data
+function populateObject(data, schema) {
+	let reorderedObject = {}
+
+	// Array of fields following proper order of fields in schema
+	const fields = Object.keys(schema.properties.items);
+
+	for (const key of fields) {
+		let value = data[key];
+
+		// Adjusts value accordingly if multi-select field
+		if((typeof value === "object" && isMultiSelect(value))) {
+			value = getSelectedOptions(value);
 		}
+
+		reorderedObject[key] = value;
 	}
-	return selectedOptions;
+
+	return reorderedObject;
 }
 
 async function populateCodeJson(data) {
-	// Path to the blank json file
-	const filePath = "schemas/template-code.json";
+	const filePath = "schemas/schema-0.0.0.json";
 
-	let codeJson = await retrieveFile(filePath);
+	// Retrieves schema with fields in correct order
+	const schema = await retrieveFile(filePath);
+	let codeJson = {};
 
-	if (codeJson) {
-		populateObject(data, codeJson);
+	// Populates fields with form data
+	if (schema) {
+		codeJson = populateObject(data, schema);
 	} else {
 		console.error("Failed to retrieve JSON data.");
 	}
 
-	console.log("FINAL CODE JSON HERE", codeJson);
 	return codeJson;
 }
 
