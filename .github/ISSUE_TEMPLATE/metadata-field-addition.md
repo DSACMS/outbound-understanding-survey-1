@@ -24,8 +24,4 @@ Provide example values here:
 
 ### Explanation
 
-Describe more about the new field to add to code.json. Provide an explanation of why this field should be included and how its collection provides value to the agency. 
-
-### Steps to reproduce the behavior
-
-List all relevant steps to reproduce the observed behavior.
+Describe more about the new field to add to code.json. Provide an explanation of why this field should be included and how its collection provides value to the agency.
