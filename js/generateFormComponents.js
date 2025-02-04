@@ -22,6 +22,14 @@ function transformArrayToOptions(arr) {
 	}));
 }
 
+// Function that handles validation object needed for each form component
+function determineValidation(fieldName, fieldObject, requiredArray){
+	return {
+		"required": requiredArray.includes(fieldName)
+	}
+}
+
+// Function that determines type of form component based on field
 function determineType(field) {
 	if (field.type === "object") {
 		return "container";
@@ -52,8 +60,9 @@ function determineType(field) {
 }
 
 // Creates Form.io component based on json field type
-function createComponent(fieldName, fieldObject) {
+function createComponent(fieldName, fieldObject, requiredArray) {
 	const componentType = determineType(fieldObject);
+	const validate = determineValidation(fieldName, fieldObject, requiredArray);
 	switch (componentType) {
 		case "textfield":
 			return {
@@ -61,7 +70,8 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				label: fieldName,
 				input: true,
-				description: fieldObject["description"]
+				description: fieldObject["description"],
+				validate
 			};
 		case "tags":
 			return {
@@ -72,7 +82,8 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				type: "tags",
 				input: true,
-				description: fieldObject["description"]
+				description: fieldObject["description"],
+				validate
 			};
 		case "number":
 			return {
@@ -88,7 +99,8 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				type: "number",
 				input: true,
-				description: fieldObject["description"]
+				description: fieldObject["description"],
+				validate
 			};
 		case "radio":
 			var options = transformArrayToOptions(fieldObject.enum);
@@ -104,6 +116,7 @@ function createComponent(fieldName, fieldObject) {
 				type: "radio",
 				input: true,
 				description: fieldObject["description"],
+				validate
 			};
 		case "selectboxes":
 			var options = transformArrayToOptions(fieldObject.items.enum);
@@ -118,7 +131,8 @@ function createComponent(fieldName, fieldObject) {
 				type: "selectboxes",
 				input: true,
 				inputType: "checkbox",
-				description: fieldObject["description"]
+				description: fieldObject["description"],
+				validate
 			};
 		case "datetime":
 			return {
@@ -152,7 +166,8 @@ function createComponent(fieldName, fieldObject) {
 					disableWeekdays: false,
 					maxDate: null
 				},
-				description: fieldObject["description"]
+				description: fieldObject["description"],
+				validate
 			};
 		case "select-boolean":
 			return {
@@ -175,7 +190,8 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				type: "select",
 				input: true,
-				description: fieldObject["description"]
+				description: fieldObject["description"],
+				validate
 			};
 		case "container": 
 			return {
@@ -185,7 +201,8 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				type: "container",
 				input: true,
-				components: []
+				components: [],
+				validate
 			};
 		case "datagrid":
 			return {
@@ -203,7 +220,8 @@ function createComponent(fieldName, fieldObject) {
 				key: fieldName,
 				type: "datagrid",
 				input: true,
-				components: []
+				components: [],
+				validate
 			}; 
 		default:
 			break;
@@ -222,14 +240,19 @@ function createAllComponents(schema, prefix = ""){
 
 	if (schema.type === "object" && schema.properties) {
 
-		const items = schema.properties.hasOwnProperty("items") ? schema.properties.items : schema.properties
+		const items = schema.properties.hasOwnProperty("items") ? schema.properties.items : schema.properties;
+		
+		let requiredArray = [];
+		if (schema.hasOwnProperty("required")) {
+			requiredArray = schema.required;
+		}
 
         for (const [key, value] of Object.entries(items)) {
             
 			console.log("key at play:", key);
 			const fullKey = prefix ? `${prefix}.${key}` : key;
 
-			let fieldComponent = createComponent(key, value);
+			let fieldComponent = createComponent(key, value, requiredArray);
 
 			if (fieldComponent.type === "container") {
 				fieldComponent.components = createAllComponents(value, fullKey);
