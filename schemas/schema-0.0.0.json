@@ -39,6 +39,7 @@
                 "properties": {
                     "licenses": {
                         "type": "array",
+                        "description": "License(s) for the release",
                         "items": {
                             "type": "object",
                             "properties": {
