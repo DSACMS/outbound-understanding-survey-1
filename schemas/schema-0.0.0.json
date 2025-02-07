@@ -65,7 +65,7 @@
                                 "URL": {
                                     "type": "string",
                                     "format": "uri",
-                                    "description": "The URL of the release license"
+                                    "description": "The URL of the release license in the repository"
                                 }
                             },
                             "required": [
@@ -128,7 +128,7 @@
             },
             "laborHours": {
                 "type": "number",
-                "description": "Labor hours invested in the project"
+                "description": "Labor hours invested in the project. Calculated using COCOMO measured by the SCC tool: https://github.com/boyter/scc?tab=readme-ov-file#cocomo"
             },
             "platforms": {
                 "type": "array",
@@ -192,7 +192,7 @@
                     "created": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "Creation date of the project"
+                        "description": "Creation date of project."
                     },
                     "lastModified": {
                         "type": "string",
@@ -252,7 +252,7 @@
             },
             "fismaLevel": {
                 "type": "string",
-                "description": "FISMA security level",
+                "description": "Level of security categorization assigned to an information system under the Federal Information Security Modernization Act (FISMA): https://security.cms.gov/learn/federal-information-security-modernization-act-fisma",
                 "enum": [
                     "Low",
                     "Moderate",
@@ -294,6 +294,7 @@
                 "enum": [
                     "github.com/CMSgov",
                     "github.com/CMS-Enterprise",
+                    "github.com/DSACMS",
                     "github.cms.gov",
                     "CCSQ GitHub"
                 ]
@@ -306,7 +307,54 @@
                     3,
                     4
                 ],
-                "description": "Maturity model tier"
+                "description": "Maturity model tier according to the CMS OSPO's framework: https://github.com/DSACMS/repo-scaffolder/blob/main/maturity-model-tiers.md"
+            },
+            "contractNumber": {
+                "type": "integer",
+                "description": "Contract number"
+            },
+            "repositoryVisibility": {
+                "type": "string",
+                "enum": ["public", "private"],
+                "description": "Visibility of repository"
+            },
+            "reuseFrequency": {
+                "type": "object",
+                "description": "Measures frequency of code reuse in various forms. (e.g. forks, downloads, clones)",
+                "properties": {
+                    "forks": { 
+                        "type": "integer" 
+                    }
+                },
+                "additionalProperties": true
+            },
+            "feedbackMechanisms": {
+                "type": "array",
+                "description": "Methods a repository receives feedback from the community. Default value is the URL to GitHub repository issues page.",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "project": {
+                "type": "array",
+                "description": "Maps repositories to projects",
+                "items": { 
+                    "type": "string"
+                }
+            },
+            "systems": {
+                "type": "array",
+                "description": "Maps repositories to CMS systems",
+                "items": { 
+                    "type": "string"
+                }
+            },
+            "upstream": {
+                "type": "array",
+                "description": "List of upstream repositories and dependencies used",
+                "items": { 
+                    "type": "string"
+                }
             }
         }
     },
@@ -336,7 +384,12 @@
         "subsetInHealthcare",
         "userType",
         "repositoryHost",
-        "maturityModelTier"
+        "maturityModelTier",
+        "contractNumber",
+        "repositoryVisibility",
+        "reuseFrequency",
+        "feedbackMechanisms",
+        "project"
     ],
     "additionalProperties": false
 }
