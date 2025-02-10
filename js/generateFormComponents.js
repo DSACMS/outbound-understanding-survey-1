@@ -49,6 +49,9 @@ function determineType(field) {
 		return "radio";
 	} else if (field.type === "number") {
 		return "number";
+	}
+	else if (field.type === "integer") {
+		return "integer";
 	} else if (field.type === "boolean") {
 		return "select-boolean";
 	} else if (field.type === "string" || field.type.includes("string")) {
@@ -102,6 +105,24 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 				description: fieldObject["description"],
 				validate
 			};
+		case "integer":
+			return {
+				label: fieldName,
+				applyMaskOn: "change",
+				mask: false,
+				tableView: false,
+				delimiter: false,
+				requireDecimal: false,
+				decimalLimit: 0,
+				inputFormat: "plain",
+				truncateMultipleSpaces: false,
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "number",
+				input: true,
+				description: fieldObject["description"],
+				validate
+			};
 		case "radio":
 			var options = transformArrayToOptions(fieldObject.enum);
 			console.log("checking options here:", options);
@@ -142,8 +163,7 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 					disableWeekends: false,
 					disableWeekdays: false
 				},
-				enableMinDateInput: false,
-				enableMaxDateInput: false,
+				enableTime: false,
 				validateWhenHidden: false,
 				key: fieldName,
 				type: "datetime",
@@ -155,16 +175,10 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 					useLocaleSettings: false,
 					allowInput: true,
 					mode: "single",
-					enableTime: true,
 					noCalendar: false,
-					format: "yyyy-MM-dd hh:mm a",
-					hourIncrement: 1,
-					minuteIncrement: 1,
-					time_24hr: false,
-					minDate: null,
+					format: "yyyy-MM-dd",
 					disableWeekends: false,
 					disableWeekdays: false,
-					maxDate: null
 				},
 				description: fieldObject["description"],
 				validate
@@ -196,12 +210,14 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 		case "container": 
 			return {
 				label: fieldName,
+				hideLabel: false,
 				tableView: false,
 				validateWhenHidden: false,
 				key: fieldName,
 				type: "container",
 				input: true,
 				components: [],
+				description: fieldObject["description"],
 				validate
 			};
 		case "datagrid":
@@ -272,7 +288,7 @@ function createAllComponents(schema, prefix = ""){
 async function createFormComponents() {
 	let components = [];
 
-	const filePath = "schemas/schema-0.0.0.json";
+	const filePath = "schemas/schema.json";
 	const jsonData = await retrieveFile(filePath);
 	console.log("JSON Data:", jsonData);
 
@@ -285,7 +301,7 @@ async function createFormComponents() {
 		type: "button",
 		label: "Submit",
 		key: "submit",
-		disableOnInvalid: true,
+		disableOnInvalid: false,
 		input: true,
 		tableView: false,
 	});

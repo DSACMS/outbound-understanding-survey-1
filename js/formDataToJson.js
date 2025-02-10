@@ -57,7 +57,7 @@ function populateObject(data, schema) {
 }
 
 async function populateCodeJson(data) {
-	const filePath = "schemas/schema-0.0.0.json";
+	const filePath = "schemas/schema.json";
 
 	// Retrieves schema with fields in correct order
 	const schema = await retrieveFile(filePath);
