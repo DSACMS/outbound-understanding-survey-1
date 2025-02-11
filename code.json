@@ -1,0 +1,48 @@
+{
+  "name": "codejson-generator",
+  "description": "Form to generate a CMS code.json",
+  "longDescription": "",
+  "status": "",
+  "permissions": {
+    "license": [
+      {
+        "name": "",
+        "URL": ""
+      }
+    ],
+    "usageType": "",
+    "exemptionText": ""
+  },
+  "organization": "",
+  "repositoryURL": "https://github.com/DSACMS/codejson-generator",
+  "vcs": "git",
+  "laborHours": 3315,
+  "platforms": [],
+  "categories": [],
+  "softwareType": "",
+  "languages": [
+    "JavaScript",
+    "HTML",
+    "CSS"
+  ],
+  "maintenance": "",
+  "date": {
+    "created": "2024-11-22T16:30:29Z",
+    "lastModified": "2025-02-11T17:39:37Z",
+    "metaDataLastUpdated": "2025-02-11T17:40:38.508Z"
+  },
+  "tags": [],
+  "contact": {
+    "email": "",
+    "name": ""
+  },
+  "localisation": false,
+  "repositoryType": "",
+  "userInput": false,
+  "fismaLevel": "",
+  "group": "",
+  "subsetInHealthcare": [],
+  "userType": [],
+  "repositoryHost": "github",
+  "maturityModelTier": 0
+}
