@@ -16,9 +16,15 @@
   "organization": "Centers for Medicare & Medicaid Services",
   "repositoryURL": "https://github.com/DSACMS/codejson-generator",
   "vcs": "git",
-  "laborHours": 3315,
-  "platforms": ["web"],
-  "categories": ["it-asset-management", "inventory-management", "data-collection"],
+  "laborHours": 3347,
+  "platforms": [
+    "web"
+  ],
+  "categories": [
+    "it-asset-management",
+    "inventory-management",
+    "data-collection"
+  ],
   "softwareType": "standalone/web",
   "languages": [
     "JavaScript",
@@ -28,10 +34,14 @@
   "maintenance": "internal",
   "date": {
     "created": "2024-11-22T16:30:29Z",
-    "lastModified": "2025-02-11T17:39:37Z",
-    "metaDataLastUpdated": "2025-02-11T17:40:38.508Z"
+    "lastModified": "2025-02-13T20:05:39Z",
+    "metaDataLastUpdated": "2025-02-14T15:06:13.678Z"
   },
-  "tags": ["codejson", "compliance", "OSPO"],
+  "tags": [
+    "codejson",
+    "compliance",
+    "OSPO"
+  ],
   "contact": {
     "email": "opensource@cms.hhs.gov",
     "name": "CMS Open Source Team"
@@ -41,8 +51,12 @@
   "userInput": false,
   "fismaLevel": "Low",
   "group": "CMS/OA/DSAC",
-  "subsetInHealthcare": ["Operational"],
-  "userType": ["Government"],
+  "subsetInHealthcare": [
+    "Operational"
+  ],
+  "userType": [
+    "Government"
+  ],
   "repositoryHost": "github.com/DSACMS",
   "maturityModelTier": 3
 }
