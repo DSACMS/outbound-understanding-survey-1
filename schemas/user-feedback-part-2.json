@@ -1,0 +1,220 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Content and Tools Evaluation Survey",
+    "description": "Evaluate documentation clarity and user confidence in using checklist areas",
+    "type": "object",
+    "properties": {
+        "userName": {
+            "type": "string",
+            "description": "Name of the user providing feedback",
+            "minLength": 1
+        },
+        "checklistClarityRatings": {
+            "type": "object",
+            "description": "Ratings (1-5) for clarity of each checklist section",
+            "properties": {
+                "codeReview": {
+                    "type": "integer",
+                    "description": "Code review section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "codeAnalysis": {
+                    "type": "integer",
+                    "description": "Code Analysis section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "codeAnalysisToolkit": {
+                    "type": "integer",
+                    "description": "Code Analysis Toolkit clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "licensing": {
+                    "type": "integer",
+                    "description": "Licensing section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "commitHistory": {
+                    "type": "integer",
+                    "description": "Commit History section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "readme": {
+                    "type": "integer",
+                    "description": "README.md section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "codeJson": {
+                    "type": "integer",
+                    "description": "code.json section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "community": {
+                    "type": "integer",
+                    "description": "COMMUNITY.md section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "contributing": {
+                    "type": "integer",
+                    "description": "CONTRIBUTING.md section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "security": {
+                    "type": "integer",
+                    "description": "SECURITY.md section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "codeOfConduct": {
+                    "type": "integer",
+                    "description": "CODE_OF_CONDUCT.md section clarity",
+                    "minimum": 1,
+                    "maximum": 5
+                }
+            },
+            "required": [
+                "codeReview",
+                "codeAnalysis",
+                "codeAnalysisToolkit",
+                "licensing",
+                "commitHistory",
+                "readme",
+                "codeJson",
+                "community",
+                "contributing",
+                "security",
+                "codeOfConduct"
+            ]
+        },
+        "documentationExperience": {
+            "type": "object",
+            "description": "Feedback about documentation experience",
+            "properties": {
+                "timeToComplete": {
+                    "type": "string",
+                    "description": "How long did it take to find and complete the necessary documentation tasks?"
+                },
+                "slowdownFactors": {
+                    "type": "string",
+                    "description": "What (if anything) slowed you down?"
+                },
+                "repetitiveSections": {
+                    "type": "string",
+                    "description": "Were there any sections you found repetitive?"
+                },
+                "unnecessarySections": {
+                    "type": "string",
+                    "description": "Were there any sections that you felt were not necessary to have as the standard?"
+                },
+                "commentsClarity": {
+                    "type": "integer",
+                    "description": "Rate the comments on the file (1-5)",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "confusingTerms": {
+                    "type": "string",
+                    "description": "Were there any terms or instructions that felt ambiguous or confusing?"
+                },
+                "riskAcceptanceUnderstanding": {
+                    "type": "string",
+                    "description": "What is your understanding of risk acceptance?"
+                }
+            },
+            "required": [
+                "timeToComplete",
+                "slowdownFactors",
+                "repetitiveSections",
+                "unnecessarySections",
+                "commentsClarity",
+                "confusingTerms",
+                "riskAcceptanceUnderstanding"
+            ]
+        },
+        "confidenceRatings": {
+            "type": "object",
+            "description": "Confidence ratings in completing areas",
+            "properties": {
+                "projectMetadata": {
+                    "type": "integer",
+                    "description": "Confidence in completing Project Metadata (1-5)",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "repositoryDetails": {
+                    "type": "integer",
+                    "description": "Confidence in completing Repository Details (1-5)",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "riskAcceptance": {
+                    "type": "integer",
+                    "description": "Confidence in Risk acceptance of open-sourcing (1-5)",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "makingPublic": {
+                    "type": "integer",
+                    "description": "Confidence in Making the repository public (1-5)",
+                    "minimum": 1,
+                    "maximum": 5
+                }
+            },
+            "required": [
+                "projectMetadata",
+                "repositoryDetails",
+                "riskAcceptance",
+                "makingPublic"
+            ]
+        },
+        "timeConsumingSections": {
+            "type": "string",
+            "description": "Which sections took the most time to complete? Which were more complex?"
+        },
+        "qualitativeFeedback": {
+            "type": "object",
+            "description": "Qualitative feedback about the checklist",
+            "properties": {
+                "challengingSections": {
+                    "type": "string",
+                    "description": "Which sections were most challenging to understand?"
+                },
+                "unclearSteps": {
+                    "type": "string",
+                    "description": "Were the concept steps unclear or missing?"
+                },
+                "improvementSuggestions": {
+                    "type": "string",
+                    "description": "What would you change or add to improve the checklist?"
+                },
+                "informationClarity": {
+                    "type": "string",
+                    "description": "Do you feel that you have the information to complete the section was clear, why or why not?"
+                }
+            },
+            "required": [
+                "challengingSections",
+                "unclearSteps",
+                "improvementSuggestions",
+                "informationClarity"
+            ]
+        }
+    },
+    "required": [
+        "userName",
+        "checklistClarityRatings",
+        "documentationExperience",
+        "confidenceRatings",
+        "timeConsumingSections",
+        "qualitativeFeedback"
+    ],
+    "additionalProperties": false
+}

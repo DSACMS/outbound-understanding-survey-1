@@ -288,7 +288,7 @@ function createAllComponents(schema, prefix = ""){
 async function createFormComponents() {
 	let components = [];
 
-	const filePath = "schemas/schema.json";
+	const filePath = "schemas/user-feedback-part-2.json";
 	const jsonData = await retrieveFile(filePath);
 	console.log("JSON Data:", jsonData);
 

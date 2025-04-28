@@ -1,0 +1,95 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "User Feedback Survey Part: I",
+    "description": "Survey with quantitative and qualitative questions",
+    "type": "object",
+    "properties": {
+        "userName": {
+            "type": "string",
+            "description": "Name of user providing feedback",
+            "minLength": 1
+        },
+        "quantitativeFeeback": {
+            "type": "object",
+            "description": "Quantitative feedback on a scale of 1-5",
+            "properties": {
+                "sortingProcessClarity": {
+                    "type": "integer",
+                    "description": "How clear was the sorting process?",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "tierSelectionConfidence": {
+                    "type": "integer",
+                    "description": "How confident are you in the tier selection outcome?",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "benefitsClarity": {
+                    "type": "integer",
+                    "description": "How clearly were the benefits of open sourcing explained?",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "risksClarity": {
+                    "type": "integer",
+                    "description": "How well do you understand the risks of open sourcing?",
+                    "minimum": 1,
+                    "maximum": 5
+                },
+                "maturityModelClarity": {
+                    "type": "integer",
+                    "description": "How well do you understand the OSPO’s maturity model framework after running the script?",
+                    "minimum": 1,
+                    "maximum": 5
+                }
+            },
+            "required": [
+                "sortingProcessClarity",
+                "tierSelectionConfidence",
+                "benefitsClarity",
+                "risksClarity",
+                "maturityModelClarity"
+            ]
+        },
+        "qualitativeFeedback": {
+            "type": "object",
+            "description": "Qualitative feedback in text form",
+            "properties": {
+                "figuringOutTier": {
+                    "type": "string",
+                    "description": "What, if anything, was confusing about the selection process for figuring out a tier?"
+                },
+                "benefits": {
+                    "type": "string",
+                    "description": "Which benefits or risks stood out most to you? Why?"
+                },
+                "improvements": {
+                    "type": "string",
+                    "description": "Any suggestions to improve this section?"
+                },
+                "selectionProcess": {
+                    "type": "string",
+                    "description": "Do you think the tier selection model was a good selection process for your project?"
+                },
+                "modelExplaination": {
+                    "type": "string",
+                    "description": "A question about how they feel or can they explain the model they chose (WIP)"
+                }
+            },
+            "required": [
+                "figuringOutTier",
+                "benefits",
+                "improvements",
+                "selectionProcess",
+                "modelExplaination"
+            ]
+        }
+    },
+    "required": [
+        "userName",
+        "quantitativeFeeback",
+        "qualitativeFeedback"
+    ],
+    "additionalProperties": false
+}
