@@ -17,67 +17,155 @@
                     "type": "integer",
                     "description": "Code review section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "codeAnalysis": {
                     "type": "integer",
                     "description": "Code Analysis section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "codeAnalysisToolkit": {
                     "type": "integer",
                     "description": "Code Analysis Toolkit clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "licensing": {
                     "type": "integer",
                     "description": "Licensing section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "commitHistory": {
                     "type": "integer",
                     "description": "Commit History section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "readme": {
                     "type": "integer",
                     "description": "README.md section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
-                "codeJson": {
+                "codeJsonClarity": {
                     "type": "integer",
                     "description": "code.json section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "community": {
                     "type": "integer",
                     "description": "COMMUNITY.md section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "contributing": {
                     "type": "integer",
                     "description": "CONTRIBUTING.md section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "security": {
                     "type": "integer",
                     "description": "SECURITY.md section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "codeOfConduct": {
                     "type": "integer",
                     "description": "CODE_OF_CONDUCT.md section clarity",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 }
             },
             "required": [
@@ -87,7 +175,7 @@
                 "licensing",
                 "commitHistory",
                 "readme",
-                "codeJson",
+                "codeJsonClarity",
                 "community",
                 "contributing",
                 "security",
@@ -118,7 +206,14 @@
                     "type": "integer",
                     "description": "Rate the comments on the file (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,"enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "confusingTerms": {
                     "type": "string",
@@ -147,25 +242,54 @@
                     "type": "integer",
                     "description": "Confidence in completing Project Metadata (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,"enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "repositoryDetails": {
                     "type": "integer",
                     "description": "Confidence in completing Repository Details (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,"enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "riskAcceptance": {
                     "type": "integer",
                     "description": "Confidence in Risk acceptance of open-sourcing (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,"enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "makingPublic": {
                     "type": "integer",
                     "description": "Confidence in Making the repository public (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 }
             },
             "required": [

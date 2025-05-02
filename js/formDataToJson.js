@@ -1,16 +1,31 @@
 // Retrieves file and returns as json object
 async function retrieveFile(filePath) {
 	try {
-		const response = await fetch(filePath);
+		const cacheBuster = `?t=${Date.now()}`;
+		const response = await fetch(filePath + cacheBuster);
 
 		if (!response.ok) {
-			throw new Error("Network response was not ok");
+			throw new Error(`Network response was not ok ${response.status}`);
 		}
 		// Returns file contents in a json format
 		return await response.json();
 	} catch (error) {
-		console.error("There was a problem with the fetch operation:", error);
-		return null;
+		console.error("There was a problem with the fetch operation:", {
+			filePath: filePath,
+			error: error.message
+		});
+
+		try {
+			const absolutePath = new URL(filePath, window.location.href).href;
+			const fallbackResponse = await fetch(absolutePath + cacheBuster);
+
+			if (!fallbackResponse.ok) throw new Error(`Fallback failed`);
+
+			return await fallbackResponse.json();
+		} catch (fallbackError) {
+			console.error("Fallback loading failed: ", fallbackError);
+			throw new Error(`Cannot load file at ${filePath}`);
+		}
 	}
 }
 
@@ -57,37 +72,90 @@ function populateObject(data, schema) {
 }
 
 async function populateCodeJson(data) {
-	const filePath = "schemas/schema.json";
+    try {
+        const filePath = "schemas/user-feedback-part-2.json";
+        const schema = await retrieveFile(filePath);
+       
+        if (!schema || !schema.properties) {
+            console.error("Invalid schema structure");
+            return data; // Return the original data if schema is invalid
+        }
 
-	// Retrieves schema with fields in correct order
-	const schema = await retrieveFile(filePath);
-	let codeJson = {};
+        // Handle both direct properties and items container
+        const sourceProperties = schema.properties.items
+            ? schema.properties.items.properties
+            : schema.properties;
 
-	// Populates fields with form data
-	if (schema) {
-		codeJson = populateObject(data, schema);
-	} else {
-		console.error("Failed to retrieve JSON data.");
-	}
+        if (!sourceProperties) {
+            console.error("No properties found in schema");
+            return data;
+        }
 
-	return codeJson;
+        const fields = Object.keys(sourceProperties);
+        const result = {};
+
+        // Populate fields while preserving schema order
+        for (const key of fields) {
+            if (data.hasOwnProperty(key)) {
+                result[key] = data[key];
+            }
+        }
+
+        return result;
+    } catch (error) {
+        console.error("Error in populateCodeJson:", error);
+        return data; // Fallback to original data on error
+    }
 }
 
-// Creates code.json and triggers file download
 async function downloadFile(data) {
-	delete data.submit;
-	const codeJson = await populateCodeJson(data);
+    try {
+        // Clean the data first
+        const cleanData = {...data};
+        delete cleanData.submit;
 
-	const jsonString = JSON.stringify(codeJson, null, 2);
-	const blob = new Blob([jsonString], { type: "application/json" });
-
-	// Create anchor element and create download link
-	const link = document.createElement("a");
-	link.href = URL.createObjectURL(blob);
-	link.download = "code.json";
-
-	// Trigger the download
-	link.click();
+        // Generate the structured JSON
+        const jsonData = await populateCodeJson(cleanData);
+       
+        // Create filename with timestamp
+        const now = new Date();
+        const timestamp = now.toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_');
+        const filename = `user-feedback_${timestamp}.json`;
+       
+        // Create and trigger download
+        const jsonString = JSON.stringify(jsonData, null, 2);
+        const blob = new Blob([jsonString], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+       
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+       
+        // Cleanup
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+    } catch (error) {
+        console.error("Error downloading file:", error);
+        alert("Error generating download. Please try again.");
+    }
 }
 
+// Copies code.json to clipboard
+async function copyToClipboard(event){
+	event.preventDefault();
+
+	var textArea = document.getElementById("json-result");
+    textArea.select();
+	document.execCommand("copy")
+	alert('Copied!');
+}
+
+window.createCodeJson = createCodeJson;
+window.copyToClipboard = copyToClipboard;
 window.downloadFile = downloadFile;

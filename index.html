@@ -21,36 +21,96 @@
 		<script src="https://unpkg.com/formiojs@4.21.6/dist/formio.full.min.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/formiojs@4.21.6/dist/formio.full.min.css" rel="stylesheet">
 
+		<!-- These are the actions buttons-->
+		<!-- <div>
+			<button id="download-json" class="btn btn-primary">Download JSON</button>
+			<button id="copy-json" class="btn btn-default" style="margin-left: 10px;">Copy JSON</button>
+		</div> -->
+
 		<!-- Render the form -->
 		<script src="js/generateFormComponents.js"></script>
 		<script src="js/formDataToJson.js"></script>
+		<script src="js/formActions.js"></script>
 		<script type="text/javascript">
-			createFormComponents()
-				.then((components) => {
-					Formio.createForm(document.getElementById("formio"), {
-						display: "form",
-						theme: "primary",
-						settings: {
-							pdf: {
-								id: "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
-								src: "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
-							},
-						},
-						components: components,
-					}).then(function (form) {
-						form.on("submit", function (submission) {
-							console.log("form submission here:", submission);
-							downloadFile(submission.data);
+			document.addEventListener("DOMContentLoaded", function() {
+				createFormComponents()
+					.then((components) => {
+						Formio.createForm(document.getElementById("formio"), {
+							// display: "form",
+							// theme: "primary",
+							// settings: {
+							// 	pdf: {
+							// 		id: "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
+							// 		src: "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
+							// 	},
+							// },
+							components: components,
+						}).then(function (form) {
+							form.on("submit", function (submission) {
+								console.log("Form Submission: ", submission.data);
+								window.lastSubmission = submission.data;
+								console.log("form submission here:", submission);
+								// downloadFile(submission.data);
+
+								const formActions = document.getElementById('form-actions');
+								if (formActions) {
+									formActions.style.display = 'block';
+								}
+							});
 						});
-					});
-				})
-				.catch((error) => {
-					console.error("Error creating components:", error);
+					})
+					.catch((error) => {
+						console.error("Error creating components:", error);
 				});
+			});
+		</script>
+		<script>
+			document.getElementById('myForm').addEventListener('submit', async (e) => {
+			  e.preventDefault();
+			  const formData = Object.fromEntries(new FormData(e.target));
+			 
+			  // Create GitHub Pull Request
+			  const response = await createGitHubPR(formData);
+			 
+			  if (response.ok) {
+				alert('Submission received! Confirmation email coming soon.');
+			  } else {
+				alert('Submission failed. Please try again later.');
+			  }
+			});
+			
+			async function createGitHubPR(data) {
+			  const filename = `submissions/${Date.now()}.json`;
+			  const content = btoa(JSON.stringify(data, null, 2));
+			 
+			  return fetch('https://api.github.com/repos/DSACMS/user-testing-forms/contents/' + filename, {
+				method: 'PUT',
+				headers: {
+				  'Authorization': 'token ghp_your_personal_access_token',
+				  'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+				  message: 'New form submission',
+				  content: content,
+				  branch: 'main'
+				})
+			  });
+			}
 		</script>
 	</head>
 	<body>
 		<div id="form-header"></div>
 		<div id="formio"></div>
+
+		<form id="myForm">
+			<button type="submit">Submit Email</button>
+		</form>
+
+		<div id="output">
+			<label for="json-result">Info </label>
+        	<textarea class="form-control" rows="10" id="json-result" readonly></textarea>
+			<button id="download-json" type="button" class="btn btn-outline" href="#" onclick="downloadFile(event)">Download</button>
+			<button id="copy-json" type="button" class="btn btn-outline" href="#" onclick="copyToClipboard(event)">Copy</button>
+		</div>
 	</body>
 </html>

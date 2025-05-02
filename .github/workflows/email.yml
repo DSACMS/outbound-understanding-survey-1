@@ -1,0 +1,35 @@
+name: Send Email for Form Submission
+on:
+  push:
+    paths:
+      - 'workflows/*.json'
+
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+     
+      - name: Get Submission
+        id: get_submission
+        run: |
+          FILE=$(git diff --name-only HEAD~1 HEAD)
+          echo "Submission file: $FILE"
+          CONTENT=$(cat $FILE)
+          echo "::set-output name=content::$CONTENT"
+          eche "::set-output name=filename::${FILE#workflows/}"
+         
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with: 
+          server_address: smtp.office365.com
+          server_port: 587
+          secure: true
+          username: ${{ secrets.MICROSOFT_EMAIL }}
+          password: ${{ secrets.MICROSOFT_PASSWORD }}
+          subject: "New Form Submission"
+          to: "dinne.kopelevich@cms.hhs.gov"
+          from: "Form Bot <${{ secrets.M365_EMAIL }}>"
+          html_body: |
+            <h1>New Submission</h1>
+            <pre>${{steps.get_submission.outputs.content}}</pre>
