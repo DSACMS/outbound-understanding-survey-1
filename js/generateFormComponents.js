@@ -343,8 +343,6 @@ async function createFormComponents() {
 		tableView: false,
 	});
 
-	console.log({components});
-
 	return components;
 }
 

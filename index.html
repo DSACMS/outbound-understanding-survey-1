@@ -20,42 +20,59 @@
 		<!-- Working Form.io CDN -->
 		<script src="https://unpkg.com/formiojs@4.21.6/dist/formio.full.min.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/formiojs@4.21.6/dist/formio.full.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div id="form-header"></div>
+			<div id="formio"></div>
 
-		<!-- These are the actions buttons-->
-		<!-- <div>
-			<button id="download-json" class="btn btn-primary">Download JSON</button>
-			<button id="copy-json" class="btn btn-default" style="margin-left: 10px;">Copy JSON</button>
-		</div> -->
+			<!-- Hidden until submission -->
+			<div id="form-actions" style="display: none; margin-top: 20px;">
+				<h3>Form Submitted Successfully</h3>
+				<p>Download or copy the JSON data below:</p>
 
-		<!-- Render the form -->
+				<div class="form-group">
+					<label for="json-result">JSON Data</label>
+					<textarea class="form-control" rows="10" id="json-result" readonly></textarea>
+				</div>
+				
+				<div class="btn-group">
+					<button id="download-json" class="btn btn-primary">Download JSON</button>
+					<button id="copy-json" class="btn btn-default" style="margin-left: 10px;">Copy JSON</button>
+					<button id="email-json" class="btn btn-success" style="margin-left: 10px;">Email JSON</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Scripts -->
+		<script src="js/retrieveFile.js"></script>
 		<script src="js/generateFormComponents.js"></script>
 		<script src="js/formDataToJson.js"></script>
 		<script src="js/formActions.js"></script>
+
 		<script type="text/javascript">
 			document.addEventListener("DOMContentLoaded", function() {
 				createFormComponents()
 					.then((components) => {
 						Formio.createForm(document.getElementById("formio"), {
-							// display: "form",
-							// theme: "primary",
-							// settings: {
-							// 	pdf: {
-							// 		id: "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
-							// 		src: "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
-							// 	},
-							// },
 							components: components,
 						}).then(function (form) {
 							form.on("submit", function (submission) {
 								console.log("Form Submission: ", submission.data);
-								window.lastSubmission = submission.data;
-								console.log("form submission here:", submission);
-								// downloadFile(submission.data);
 
-								const formActions = document.getElementById('form-actions');
-								if (formActions) {
-									formActions.style.display = 'block';
-								}
+								window.lastSubmission = submission.data;
+
+								const cleanData = {...submission.data};
+								delete cleanData.submit;
+
+								const jsonString = JSON.stringify(cleanData, null, 2);
+								document.getElementById('json-result').value = jsonString;
+
+								document.getElementById('form-actions').style.display = 'block';
+
+								document.getElementById('form-actions').scrollIntoView({
+									behavior: 'smooth'
+								});
 							});
 						});
 					})
@@ -64,53 +81,5 @@
 				});
 			});
 		</script>
-		<script>
-			document.getElementById('myForm').addEventListener('submit', async (e) => {
-			  e.preventDefault();
-			  const formData = Object.fromEntries(new FormData(e.target));
-			 
-			  // Create GitHub Pull Request
-			  const response = await createGitHubPR(formData);
-			 
-			  if (response.ok) {
-				alert('Submission received! Confirmation email coming soon.');
-			  } else {
-				alert('Submission failed. Please try again later.');
-			  }
-			});
-			
-			async function createGitHubPR(data) {
-			  const filename = `submissions/${Date.now()}.json`;
-			  const content = btoa(JSON.stringify(data, null, 2));
-			 
-			  return fetch('https://api.github.com/repos/DSACMS/user-testing-forms/contents/' + filename, {
-				method: 'PUT',
-				headers: {
-				  'Authorization': 'personal_access_token',
-				  'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-				  message: 'New form submission',
-				  content: content,
-				  branch: 'main'
-				})
-			  });
-			}
-		</script>
-	</head>
-	<body>
-		<div id="form-header"></div>
-		<div id="formio"></div>
-
-		<form id="myForm">
-			<button type="submit">Submit Email</button>
-		</form>
-
-		<div id="output">
-			<label for="json-result">Info </label>
-        	<textarea class="form-control" rows="10" id="json-result" readonly></textarea>
-			<button id="download-json" type="button" class="btn btn-outline" href="#" onclick="downloadFile(event)">Download</button>
-			<button id="copy-json" type="button" class="btn btn-outline" href="#" onclick="copyToClipboard(event)">Copy</button>
-		</div>
 	</body>
 </html>

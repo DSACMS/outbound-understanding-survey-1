@@ -1,70 +1,67 @@
-document.getElementById('download-json').addEventListener('click', () => {
-    if (!window.lastSubmission) {
-        alert('Please submit the form first');
-        return;
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('download-json').addEventListener('click', function() {
+        if (!window.lastSubmission) {
+            alert('Please submit the form first');
+            return;
+        }
+
+        downloadFile(window.lastSubmission)
+    });
+
+    document.getElementById('copy-json').addEventListener('click', function() {
+        if (!window.lastSubmission) {
+            alert('Please submit the form first');
+            return;
+        } 
+        const jsonString = JSON.stringify(window.lastSubmission, null, 2);
+        copyToClipboard(jsonString)
+    });
+});
+
+async function downloadFile(data) {
+    try {
+        const cleanData = {...data};
+		delete cleanData.submit;
+
+        const jsonData = await populateCodeJson(cleanData);
+
+        const now = new Date();
+        const timestamp = now.toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_');
+        const filename = `user-feedback_${timestamp}.json`;
+
+        const jsonString = JSON.stringify(jsonData, null, 2);
+        const blob = new Blob([jsonString], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+       
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+
+        console.log('File downloaded successfully!')
+    } catch (error) {
+        console.error("Error downloading file:", error);
+        alert("Error generating download. Please try again.");
     }
+}
 
-    downloadFile(window.lastSubmission)
-});
+function copyToClipboard() {
+    try {
+        const textarea = document.getElementById('json-result');
+        textarea.select();
+        document.execCommand('copy');
 
-document.getElementById('copy-json').addEventListener('click', async function() {
-    if (!window.lastSubmission) {
-        alert('Please submit the form first');
-        return;
-    } 
-    
-    const jsonString = JSON.stringify(window.lastSubmission, null, 2);
-    await copyToClipboard(jsonString)
-});
-
-// async function copyToClipboard(event) {
-//     event.preventDefault();
-   
-//     if (!window.lastSubmission) {
-//         alert('Please submit the form first');
-//         return;
-//     }
-
-//     // Create temporary textarea
-//     const textarea = document.createElement('textarea');
-//     textarea.value = JSON.stringify(window.lastSubmission, null, 2);
-//     textarea.style.position = 'fixed';
-//     textarea.style.opacity = 0;
-//     document.body.appendChild(textarea);
-   
-//     // Select and copy
-//     textarea.select();
-   
-//     try {
-//         const successful = document.execCommand('copy');
-//         if (successful) {
-//             showCopyFeedback();
-//         } else {
-//             alert('Copy failed. Please manually copy the text.');
-//         }
-//     } catch (err) {
-//         console.error('Copy failed:', err);
-//         alert('Copy not supported. Please manually copy the text.');
-//     } finally {
-//         document.body.removeChild(textarea);
-//     }
-// }
-
-// function showCopyFeedback() {
-//     const feedback = document.createElement('div');
-//     feedback.textContent = '✓ Copied!';
-//     feedback.style.position = 'fixed';
-//     feedback.style.bottom = '20px';
-//     feedback.style.right = '20px';
-//     feedback.style.padding = '10px';
-//     feedback.style.backgroundColor = '#4CAF50';
-//     feedback.style.color = 'white';
-//     feedback.style.borderRadius = '4px';
-//     feedback.style.zIndex = '1000';
-   
-//     document.body.appendChild(feedback);
-//     setTimeout(() => feedback.remove(), 2000);
-// }
-
-// // Attach to your button
-// document.getElementById('copy-json')?.addEventListener('click', copyToClipboard);
+        alert('JSON copied to clipboard!');
+    } catch (error) {
+        console.error('Error copying to clipboard: ', error);
+        alert('Error copying to clipboard. Please try again.');
+    }
+}
