@@ -13,8 +13,18 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Please submit the form first');
             return;
         } 
+
         const jsonString = JSON.stringify(window.lastSubmission, null, 2);
         copyToClipboard(jsonString)
+    });
+
+    document.getElementById('email-json').addEventListener('click', function() {
+        if (!window.lastSubmission) {
+            alert('Please submit the form first');
+            return;
+        } 
+
+        emailFile(window.lastSubmission)
     });
 });
 
@@ -63,5 +73,28 @@ function copyToClipboard() {
     } catch (error) {
         console.error('Error copying to clipboard: ', error);
         alert('Error copying to clipboard. Please try again.');
+    }
+}
+
+function emailFile(data) {
+    try {
+        const cleanData = {...data};
+        delete cleanData.submit;
+
+        const jsonString = JSON.stringify(cleanData, null, 2);
+
+        const subject = "Form Submission Results";
+        const body = `Hello,\n\nHere are my survey results:\n\n${jsonString}\n\nThank you!`;
+
+        const recipient = "dinne.kopelevich@cms.hhs.gov";
+
+        const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        window.location.href = mailtoLink;
+
+        console.log("Email client opened");
+    } catch {
+        console.error("Error preparing email:", error);
+        alert("Error preparing email. Please try again or copy the data manually.");
     }
 }
