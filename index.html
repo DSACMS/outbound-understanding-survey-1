@@ -57,6 +57,8 @@
 						Formio.createForm(document.getElementById("formio"), {
 							components: components,
 						}).then(function (form) {
+							window.formInstance = form; //This is the creation of the instance
+
 							form.on("submit", function (submission) {
 								console.log("Form Submission: ", submission.data);
 
@@ -73,7 +75,38 @@
 								document.getElementById('form-actions').scrollIntoView({
 									behavior: 'smooth'
 								});
+
+								//Save Submission??
+								if (localStorage.getItem('userFormProgress')) {
+									setTimeout(() => {
+										const shouldClear = confirm("Would you like to delete your saved progress now that you've submitted the form?");
+										if (shouldClear) {
+											localStorage.removeItem('userFormProgress');
+											localStorage.removeItem('userFormTimestamp');
+											console.log("Saved progress deleted after submission")
+										}
+									}, 500);
+								}
 							});
+
+							//Event Handler for Changes
+							let changeCounter = 0;
+							form.on("change", function() {
+								changeCounter++;
+
+								if (changeCounter % 10 === 0) {
+									const saveStatus = document.getElementById('save-status');
+									if (saveStatus) {
+										saveStatus.textContent = "Don't forget to save your progress.";
+										saveStatus.className = 'alert alert-info';
+										saveStatus.style.display = 'block';
+
+										setTimeout(() => {
+											saveStatus.style.display = 'none';
+										}, 5000);
+									}
+								}
+							})
 						});
 					})
 					.catch((error) => {
@@ -81,5 +114,6 @@
 				});
 			});
 		</script>
+		<script src="js/saveProgress.js"></script>
 	</body>
 </html>
