@@ -22,6 +22,17 @@ function transformArrayToOptions(arr) {
 	}));
 }
 
+function getRatingLabel(value) {
+	const labels = {
+		1: "Not clear at all",
+		2: "Slightly clear",
+		3: "Moderately clear",
+		4: "Very clear",
+		5: "Extremely clear"
+	};
+	return labels[value] || value;
+}
+
 // Function that handles validation object needed for each form component
 function determineValidation(fieldName, fieldObject, requiredArray){
 	return {
@@ -45,6 +56,10 @@ function determineType(field) {
 		// Free response list
 		return "tags";
 	} else if (field.hasOwnProperty("enum")) {
+		if (field.type === "integer" &&
+			JSON.stringify(field.enum) === JSON.stringify([1,2,3,4,5])) {
+				return "select-rating";
+			}
 		// Single select
 		return "radio";
 	} else if (field.type === "number") {
@@ -123,7 +138,29 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 				description: fieldObject["description"],
 				validate
 			};
+		case "select-rating":
+			const ratingOptions = fieldObject.enum.map(value => ({
+				label: `${value} - ${getRatingLabel(value)}`,
+				value: value.toString()
+			}));
+			return {
+				label: fieldName,
+				widget: "choicejs",
+				placeholder: "Select a rating...1 - 5",
+				tableView: false,
+				data: { values: ratingOptions },
+				validateWhenHidden: false,
+				key: fieldName,
+				type: "select",
+				input: true,
+				description: fieldObject["description"],
+				validate
+			}
 		case "radio":
+			if (fieldObject.type === "integer" &&
+				JSON.stringify(fieldObject.enum) === JSON.stringify([1,2,3,4,5])) {
+					return null;
+			}
 			var options = transformArrayToOptions(fieldObject.enum);
 			console.log("checking options here:", options);
 			return {
@@ -305,8 +342,6 @@ async function createFormComponents() {
 		input: true,
 		tableView: false,
 	});
-
-	console.log(components);
 
 	return components;
 }

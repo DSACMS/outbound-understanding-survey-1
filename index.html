@@ -20,37 +20,100 @@
 		<!-- Working Form.io CDN -->
 		<script src="https://unpkg.com/formiojs@4.21.6/dist/formio.full.min.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/formiojs@4.21.6/dist/formio.full.min.css" rel="stylesheet">
-
-		<!-- Render the form -->
-		<script src="js/generateFormComponents.js"></script>
-		<script src="js/formDataToJson.js"></script>
-		<script type="text/javascript">
-			createFormComponents()
-				.then((components) => {
-					Formio.createForm(document.getElementById("formio"), {
-						display: "form",
-						theme: "primary",
-						settings: {
-							pdf: {
-								id: "1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
-								src: "https://files.form.io/pdf/5692b91fd1028f01000407e3/file/1ec0f8ee-6685-5d98-a847-26f67b67d6f0",
-							},
-						},
-						components: components,
-					}).then(function (form) {
-						form.on("submit", function (submission) {
-							console.log("form submission here:", submission);
-							downloadFile(submission.data);
-						});
-					});
-				})
-				.catch((error) => {
-					console.error("Error creating components:", error);
-				});
-		</script>
 	</head>
 	<body>
-		<div id="form-header"></div>
-		<div id="formio"></div>
+		<div class="container">
+			<div id="form-header"></div>
+			<div id="formio"></div>
+
+			<!-- Hidden until submission -->
+			<div id="form-actions" style="display: none; margin-top: 20px;">
+				<h3>Form Submitted Successfully</h3>
+				<p>Download or copy the JSON data below:</p>
+
+				<div class="form-group">
+					<label for="json-result">JSON Data</label>
+					<textarea class="form-control" rows="10" id="json-result" readonly></textarea>
+				</div>
+				
+				<div class="btn-group">
+					<button id="download-json" class="btn btn-primary">Download JSON</button>
+					<button id="copy-json" class="btn btn-default" style="margin-left: 10px;">Copy JSON</button>
+					<button id="email-json" class="btn btn-success" style="margin-left: 10px;">Email JSON</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Scripts -->
+		<script src="js/retrieveFile.js"></script>
+		<script src="js/generateFormComponents.js"></script>
+		<script src="js/formDataToJson.js"></script>
+		<script src="js/formActions.js"></script>
+
+		<script type="text/javascript">
+			document.addEventListener("DOMContentLoaded", function() {
+				createFormComponents()
+					.then((components) => {
+						Formio.createForm(document.getElementById("formio"), {
+							components: components,
+						}).then(function (form) {
+							window.formInstance = form; //This is the creation of the instance
+
+							form.on("submit", function (submission) {
+								console.log("Form Submission: ", submission.data);
+
+								window.lastSubmission = submission.data;
+
+								const cleanData = {...submission.data};
+								delete cleanData.submit;
+
+								const jsonString = JSON.stringify(cleanData, null, 2);
+								document.getElementById('json-result').value = jsonString;
+
+								document.getElementById('form-actions').style.display = 'block';
+
+								document.getElementById('form-actions').scrollIntoView({
+									behavior: 'smooth'
+								});
+
+								//Save Submission??
+								if (localStorage.getItem('userFormProgress')) {
+									setTimeout(() => {
+										const shouldClear = confirm("Would you like to delete your saved progress now that you've submitted the form?");
+										if (shouldClear) {
+											localStorage.removeItem('userFormProgress');
+											localStorage.removeItem('userFormTimestamp');
+											console.log("Saved progress deleted after submission")
+										}
+									}, 500);
+								}
+							});
+
+							//Event Handler for Changes
+							let changeCounter = 0;
+							form.on("change", function() {
+								changeCounter++;
+
+								if (changeCounter % 10 === 0) {
+									const saveStatus = document.getElementById('save-status');
+									if (saveStatus) {
+										saveStatus.textContent = "Don't forget to save your progress.";
+										saveStatus.className = 'alert alert-info';
+										saveStatus.style.display = 'block';
+
+										setTimeout(() => {
+											saveStatus.style.display = 'none';
+										}, 5000);
+									}
+								}
+							})
+						});
+					})
+					.catch((error) => {
+						console.error("Error creating components:", error);
+				});
+			});
+		</script>
+		<script src="js/saveProgress.js"></script>
 	</body>
 </html>
