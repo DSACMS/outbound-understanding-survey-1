@@ -59,6 +59,7 @@ jobs:
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Open Source monitor
+        working-directory: ./
         run: snyk monitor --all-projects
 
         # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
