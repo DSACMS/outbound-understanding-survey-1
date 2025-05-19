@@ -81,16 +81,47 @@ function determineType(field) {
 function createComponent(fieldName, fieldObject, requiredArray) {
 	const componentType = determineType(fieldObject);
 	const validate = determineValidation(fieldName, fieldObject, requiredArray);
+
+	const textFields = [
+        "timeToComplete",
+        "slowdownFactors",
+        "repetitiveSections",
+        "unnecessarySections",
+        "commentsClarity",
+        "confusingTerms",
+        "riskAcceptanceUnderstanding",
+		"challengingSections",
+        "unclearSteps",
+        "improvementSuggestions",
+        "informationClarity"
+    ]
+
+	const useTextarea = textFields.includes(fieldName)
+
 	switch (componentType) {
 		case "textfield":
-			return {
-				type: "textfield",
-				key: fieldName,
-				label: fieldName,
-				input: true,
-				description: fieldObject["description"],
-				validate
-			};
+			if (useTextarea) {
+				return {
+					type: "textarea",
+					key: fieldName,
+					label: fieldName,
+					rows: 5,
+					wysiwyg: false,
+					input: true,
+					tableView: true,
+					description: fieldObject["description"],
+					validate
+				};
+			} else {
+				return {
+					type: "textfield",
+					key: fieldName,
+					label: fieldName,
+					input: true,
+					description: fieldObject["description"],
+					validate
+				};
+			}
 		case "tags":
 			return {
 				label: fieldName,
