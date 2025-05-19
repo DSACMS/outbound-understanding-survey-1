@@ -1,5 +1,4 @@
 // Retrieves file and returns as json object
-//TESTING NEW REPMOTE
 async function retrieveFile(filePath) {
 	try {
 		const response = await fetch(filePath);
