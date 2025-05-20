@@ -90,6 +90,7 @@ function createComponent(fieldName, fieldObject, requiredArray) {
         "commentsClarity",
         "confusingTerms",
         "riskAcceptanceUnderstanding",
+		"timeConsumingSections",
 		"challengingSections",
         "unclearSteps",
         "improvementSuggestions",
@@ -98,45 +99,63 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 
 	const useTextarea = textFields.includes(fieldName)
 
+	const baseComponent = {
+		// type: "",
+		hideLabel: false,
+		label: fieldObject.description || fieldName,
+		key: fieldName,
+		description: "",
+		input: true,
+		validate
+	}
+
 	switch (componentType) {
 		case "textfield":
 			if (useTextarea) {
 				return {
+					...baseComponent,
 					type: "textarea",
-					key: fieldName,
-					label: fieldName,
-					rows: 5,
+					// key: fieldName,
+					// label: fieldObject["description"] || fieldName,
+					// hideLabel: false,
+					rows: 3,
 					wysiwyg: false,
-					input: true,
+					// input: true,
 					tableView: true,
-					description: fieldObject["description"],
-					validate
+					// description: fieldObject["description"],
+					// validate
 				};
 			} else {
 				return {
+					...baseComponent,
 					type: "textfield",
-					key: fieldName,
-					label: fieldName,
+					// key: fieldName,
+					// label: fieldObject["description"] || fieldName,
+					// hideLabel: false,
 					input: true,
-					description: fieldObject["description"],
-					validate
+					// description: fieldObject["description"],
+					// validate
 				};
 			}
 		case "tags":
 			return {
-				label: fieldName,
+				...baseComponent,
+				// label: fieldObject["description"] || fieldName,
+				// hideLabel: false,
 				tableView: false,
 				storeas: "array",
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "tags",
-				input: true,
-				description: fieldObject["description"],
-				validate
+				// input: true,
+				// description: fieldObject["description"],
+				// validate
 			};
 		case "number":
 			return {
-				label: fieldName,
+				...baseComponent,
+				// label: fieldObject["description"] || fieldName,
+				// hideLabel: false,
 				applyMaskOn: "change",
 				mask: false,
 				tableView: false,
@@ -145,15 +164,17 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 				inputFormat: "plain",
 				truncateMultipleSpaces: false,
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "number",
-				input: true,
-				description: fieldObject["description"],
-				validate
+				// input: true,
+				// description: fieldObject["description"],
+				// validate
 			};
 		case "integer":
 			return {
-				label: fieldName,
+				...baseComponent,
+				// label: fieldObject["description"] || fieldName,
+				// hideLabel: false,
 				applyMaskOn: "change",
 				mask: false,
 				tableView: false,
@@ -163,11 +184,11 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 				inputFormat: "plain",
 				truncateMultipleSpaces: false,
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "number",
-				input: true,
-				description: fieldObject["description"],
-				validate
+				// input: true,
+				// description: fieldObject["description"],
+				// validate
 			};
 		case "select-rating":
 			const ratingOptions = fieldObject.enum.map(value => ({
@@ -175,17 +196,19 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 				value: value.toString()
 			}));
 			return {
-				label: fieldName,
+				...baseComponent,
+				// label: fieldObject["description"] || fieldName,
+				// hideLabel: false,
 				widget: "choicejs",
 				placeholder: "Select a rating...1 - 5",
 				tableView: false,
 				data: { values: ratingOptions },
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "select",
-				input: true,
-				description: fieldObject["description"],
-				validate
+				// input: true,
+				// description: fieldObject["description"],
+				// validate
 			}
 		case "radio":
 			if (fieldObject.type === "integer" &&
@@ -195,37 +218,43 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 			var options = transformArrayToOptions(fieldObject.enum);
 			console.log("checking options here:", options);
 			return {
-				label: fieldName,
+				...baseComponent,
+				label: fieldObject["description"] || fieldName,
+				hideLabel: false,
 				optionsLabelPosition: "right",
 				inline: false,
 				tableView: false,
 				values: options,
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "radio",
 				input: true,
-				description: fieldObject["description"],
-				validate
+				// description: fieldObject["description"],
+				// validate
 			};
 		case "selectboxes":
 			var options = transformArrayToOptions(fieldObject.items.enum);
 			console.log("checking options here:", options);
 			return {
-				label: fieldName,
+				...baseComponent,
+				// label: fieldObject["description"] || fieldName,
+				// hideLabel: false,
 				optionsLabelPosition: "right",
 				tableView: false,
 				values: options,
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "selectboxes",
-				input: true,
+				// input: true,
 				inputType: "checkbox",
-				description: fieldObject["description"],
-				validate
+				// description: fieldObject["description"],
+				// validate
 			};
 		case "datetime":
 			return {
-				label: fieldName,
+				...baseComponent,
+				// label: fieldObject["description"] || fieldName,
+				// hideLabel: false,
 				tableView: false,
 				datePicker: {
 					disableWeekends: false,
@@ -235,7 +264,7 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 				validateWhenHidden: false,
 				key: fieldName,
 				type: "datetime",
-				input: true,
+				// input: true,
 				widget: {
 					type: "calendar",
 					displayInTimezone: "viewer",
@@ -248,12 +277,14 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 					disableWeekends: false,
 					disableWeekdays: false,
 				},
-				description: fieldObject["description"],
-				validate
+				// description: fieldObject["description"],
+				// validate
 			};
 		case "select-boolean":
 			return {
-				label: fieldName,
+				...baseComponent,
+				label: fieldObject["description"] || fieldName,
+				hideLabel: false,
 				widget: "html5",
 				tableView: true,
 				data: {
@@ -269,30 +300,32 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 					]
 				},
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "select",
 				input: true,
-				description: fieldObject["description"],
-				validate
+				// description: fieldObject["description"],
+				// validate
 			};
 		case "container": 
 			return {
-				label: fieldName,
+				...baseComponent,
+				label: fieldObject["description"] || fieldName,
 				hideLabel: false,
 				tableView: false,
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "container",
-				input: true,
+				// input: true,
 				components: [],
-				description: fieldObject["description"],
-				validate
+				// description: fieldObject["description"],
+				// validate
 			};
 		case "datagrid":
 			return {
-				label: fieldName,
+				...baseComponent,
+				// label: fieldName,
 				reorder: false,
-				addAnotherPosition: "bottom",
+				// addAnotherPosition: "bottom",
 				layoutFixed: false,
 				enableRowGroups: false,
 				initEmpty: false,
@@ -301,11 +334,11 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 					{}
 				],
 				validateWhenHidden: false,
-				key: fieldName,
+				// key: fieldName,
 				type: "datagrid",
-				input: true,
+				// input: true,
 				components: [],
-				validate
+				// validate
 			}; 
 		default:
 			break;
