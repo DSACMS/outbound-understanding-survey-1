@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('download-json').addEventListener('click', function() {
         if (!window.lastSubmission) {
-            alert('Please submit the form first');
+            showNotificationModal('Please submit the form first');
             return;
         }
 
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('copy-json').addEventListener('click', function() {
         if (!window.lastSubmission) {
-            alert('Please submit the form first');
+            showNotificationModal('Please submit the form first', 'warning');
             return;
         } 
 
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('email-json').addEventListener('click', function() {
         if (!window.lastSubmission) {
-            alert('Please submit the form first');
+            showNotificationModal('Please submit the form first', 'warning');
             return;
         } 
 
@@ -59,7 +59,7 @@ async function downloadFile(data) {
         console.log('File downloaded successfully!')
     } catch (error) {
         console.error("Error downloading file:", error);
-        alert("Error generating download. Please try again.");
+        showNotificationModal("Error generating download. Please try again.", 'error');
     }
 }
 
@@ -69,10 +69,10 @@ function copyToClipboard() {
         textarea.select();
         document.execCommand('copy');
 
-        alert('JSON copied to clipboard!');
+        showNotificationModal('JSON copied to clipboard!', 'success');
     } catch (error) {
         console.error('Error copying to clipboard: ', error);
-        alert('Error copying to clipboard. Please try again.');
+        showNotificationModal('Error copying to clipboard. Please try again.', 'error');
     }
 }
 
@@ -95,6 +95,6 @@ function emailFile(data) {
         console.log("Email client opened");
     } catch {
         console.error("Error preparing email:", error);
-        alert("Error preparing email. Please try again or copy the data manually.");
+        showNotificationModal("Error preparing email. Please try again or copy the data manually.", 'error');
     }
 }
