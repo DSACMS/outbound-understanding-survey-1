@@ -6,16 +6,16 @@
     "properties": {
         "userName": {
             "type": "string",
-            "description": "Name of the user providing feedback",
+            "description": "Please provide your full name",
             "minLength": 1
         },
         "checklistClarityRatings": {
             "type": "object",
-            "description": "Ratings (1-5) for clarity of each checklist section",
+            "description": "Section I: RATE THE CLARITY OF EACH CHECKLIST SECTION",
             "properties": {
                 "codeReview": {
                     "type": "integer",
-                    "description": "Code review section clarity",
+                    "description": "How clear was the Code Review section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -29,7 +29,7 @@
                 },
                 "codeAnalysis": {
                     "type": "integer",
-                    "description": "Code Analysis section clarity",
+                    "description": "How clear was the Code Analysis section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -43,7 +43,7 @@
                 },
                 "codeAnalysisToolkit": {
                     "type": "integer",
-                    "description": "Code Analysis Toolkit clarity",
+                    "description": "How clear was the Code Analysis Toolkit section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -57,7 +57,7 @@
                 },
                 "licensing": {
                     "type": "integer",
-                    "description": "Licensing section clarity",
+                    "description": "How clear was the Licensing section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -71,7 +71,7 @@
                 },
                 "commitHistory": {
                     "type": "integer",
-                    "description": "Commit History section clarity",
+                    "description": "How clear was the Commit History section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -85,7 +85,7 @@
                 },
                 "readme": {
                     "type": "integer",
-                    "description": "README.md section clarity",
+                    "description": "How clear was the README.md section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -99,7 +99,7 @@
                 },
                 "codeJsonClarity": {
                     "type": "integer",
-                    "description": "code.json section clarity",
+                    "description": "How clear was the code.json section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -113,7 +113,7 @@
                 },
                 "community": {
                     "type": "integer",
-                    "description": "COMMUNITY.md section clarity",
+                    "description": "How clear was the COMMUNITY.md section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -127,7 +127,7 @@
                 },
                 "contributing": {
                     "type": "integer",
-                    "description": "CONTRIBUTING.md section clarity",
+                    "description": "How clear was the CONTRIBUTING.md section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -141,7 +141,7 @@
                 },
                 "security": {
                     "type": "integer",
-                    "description": "SECURITY.md section clarity",
+                    "description": "How clear was the SECURITY.md section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -155,7 +155,7 @@
                 },
                 "codeOfConduct": {
                     "type": "integer",
-                    "description": "CODE_OF_CONDUCT.md section clarity",
+                    "description": "How clear was the CODE_OF_CONDUCT.md section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -184,11 +184,11 @@
         },
         "documentationExperience": {
             "type": "object",
-            "description": "Feedback about documentation experience",
+            "description": "Section II: FEEDBACK ABOUT DOCUMENTATION EXPERIENCE",
             "properties": {
                 "timeToComplete": {
                     "type": "string",
-                    "description": "How long did it take to find and complete the necessary documentation tasks?"
+                    "description": "How long would you estimate it take to find and complete the necessary documentation tasks?"
                 },
                 "slowdownFactors": {
                     "type": "string",
@@ -204,7 +204,7 @@
                 },
                 "commentsClarity": {
                     "type": "integer",
-                    "description": "Rate the comments on the file (1-5)",
+                    "description": "How clear were the comments, terms and intructions? (1-5)",
                     "minimum": 1,
                     "maximum": 5,"enum": [1, 2, 3, 4, 5],
                     "enumNames": [
@@ -236,11 +236,11 @@
         },
         "confidenceRatings": {
             "type": "object",
-            "description": "Confidence ratings in completing areas",
+            "description": "Section III: CONFIDENCE IN COMPLETING ALL AREAS OF THE CODE REVIEW",
             "properties": {
                 "projectMetadata": {
                     "type": "integer",
-                    "description": "Confidence in completing Project Metadata (1-5)",
+                    "description": "How confident are you in completing Project Metadata? (1-5)",
                     "minimum": 1,
                     "maximum": 5,"enum": [1, 2, 3, 4, 5],
                     "enumNames": [
@@ -253,7 +253,7 @@
                 },
                 "repositoryDetails": {
                     "type": "integer",
-                    "description": "Confidence in completing Repository Details (1-5)",
+                    "description": "How confident are you in completing Repository Details? (1-5)",
                     "minimum": 1,
                     "maximum": 5,"enum": [1, 2, 3, 4, 5],
                     "enumNames": [
@@ -266,7 +266,7 @@
                 },
                 "riskAcceptance": {
                     "type": "integer",
-                    "description": "Confidence in Risk acceptance of open-sourcing (1-5)",
+                    "description": "How confident in your understanding of Risk Acceptance of Open Sourcing? (1-5)",
                     "minimum": 1,
                     "maximum": 5,"enum": [1, 2, 3, 4, 5],
                     "enumNames": [
@@ -279,7 +279,7 @@
                 },
                 "makingPublic": {
                     "type": "integer",
-                    "description": "Confidence in Making the repository public (1-5)",
+                    "description": "How confident do you feel in your understanding of Making the Repository Public section? (1-5)",
                     "minimum": 1,
                     "maximum": 5,
                     "enum": [1, 2, 3, 4, 5],
@@ -301,11 +301,11 @@
         },
         "timeConsumingSections": {
             "type": "string",
-            "description": "Which sections took the most time to complete? Which were more complex?"
+            "description": "Which sections took the most time to complete? Which sections were more complex?"
         },
         "qualitativeFeedback": {
             "type": "object",
-            "description": "Qualitative feedback about the checklist",
+            "description": "Section IV: QUALITATIVE FEEDBACK ABOUT THE CHECKLIST",
             "properties": {
                 "challengingSections": {
                     "type": "string",
@@ -321,7 +321,7 @@
                 },
                 "informationClarity": {
                     "type": "string",
-                    "description": "Do you feel that you have the information to complete the section was clear, why or why not?"
+                    "description": "Do you feel that the information to complete the section was clear, why or why not?"
                 }
             },
             "required": [
