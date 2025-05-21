@@ -1,47 +1,87 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "User Feedback Survey Part: I",
-    "description": "Survey with quantitative and qualitative questions",
+    "title": "Discovery and Orientation",
+    "description": "Figuring Out Tier, Benefits and Risks",
     "type": "object",
     "properties": {
         "userName": {
             "type": "string",
-            "description": "Name of user providing feedback",
+            "description": "Please provide your full name",
             "minLength": 1
         },
         "quantitativeFeeback": {
             "type": "object",
-            "description": "Quantitative feedback on a scale of 1-5",
+            "description": "Section I: ASSESSING CLARITY OF THE PROCESS",
             "properties": {
                 "sortingProcessClarity": {
                     "type": "integer",
-                    "description": "How clear was the sorting process?",
+                    "description": "How clear was the sorting process? (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "tierSelectionConfidence": {
                     "type": "integer",
-                    "description": "How confident are you in the tier selection outcome?",
+                    "description": "How confident are you in the tier selection outcome? (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not confident at all",
+                        "2 - Slightly confident",
+                        "3 - Moderately confident",
+                        "4 - Very confident",
+                        "5 - Extremely confident"
+                    ]
                 },
                 "benefitsClarity": {
                     "type": "integer",
-                    "description": "How clearly were the benefits of open sourcing explained?",
+                    "description": "How clearly were the benefits of open sourcing explained? (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not clear at all",
+                        "2 - Slightly clear",
+                        "3 - Moderately clear",
+                        "4 - Very clear",
+                        "5 - Extremely clear"
+                    ]
                 },
                 "risksClarity": {
                     "type": "integer",
-                    "description": "How well do you understand the risks of open sourcing?",
+                    "description": "How well do you understand the risks of open sourcing? (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not well at all",
+                        "2 - Slightly",
+                        "3 - Moderately",
+                        "4 - Very well",
+                        "5 - Extremely well"
+                    ]
                 },
                 "maturityModelClarity": {
                     "type": "integer",
-                    "description": "How well do you understand the OSPO’s maturity model framework after running the script?",
+                    "description": "How well do you understand the OSPO’s maturity model framework after running the script? (1-5)",
                     "minimum": 1,
-                    "maximum": 5
+                    "maximum": 5,
+                    "enum": [1, 2, 3, 4, 5],
+                    "enumNames": [
+                        "1 - Not well at all",
+                        "2 - Slightly",
+                        "3 - Moderately",
+                        "4 - Very well",
+                        "5 - Extremely well"
+                    ]
                 }
             },
             "required": [
@@ -54,7 +94,7 @@
         },
         "qualitativeFeedback": {
             "type": "object",
-            "description": "Qualitative feedback in text form",
+            "description": "Section II: WRITTEN FEEDBACK ABOUT BENEFITS AND RISKS",
             "properties": {
                 "figuringOutTier": {
                     "type": "string",
@@ -74,7 +114,7 @@
                 },
                 "modelExplaination": {
                     "type": "string",
-                    "description": "A question about how they feel or can they explain the model they chose (WIP)"
+                    "description": "Describe how the tier selection process aligned with your expectations for choosing an open source tier. Were there any factors not addressed in our process that significantly influenced your decision?"
                 }
             },
             "required": [
