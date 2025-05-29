@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         } 
 
-        emailFile(window.lastSubmission)
+        emailFile(window.lastSubmission);
     });
 });
 
