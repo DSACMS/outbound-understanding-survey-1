@@ -83,18 +83,11 @@ function createComponent(fieldName, fieldObject, requiredArray) {
 	const validate = determineValidation(fieldName, fieldObject, requiredArray);
 
 	const textFields = [
-        "timeToComplete",
-        "slowdownFactors",
-        "repetitiveSections",
-        "unnecessarySections",
-        "commentsClarity",
-        "confusingTerms",
-        "riskAcceptanceUnderstanding",
-		"timeConsumingSections",
-		"challengingSections",
-        "unclearSteps",
-        "improvementSuggestions",
-        "informationClarity"
+        "figuringOutTier",
+        "benefits",
+        "improvements",
+        "selectionProcess",
+        "modelExplaination"
     ]
 
 	const useTextarea = textFields.includes(fieldName)
@@ -327,7 +320,7 @@ function createAllComponents(schema, prefix = ""){
 async function createFormComponents() {
 	let components = [];
 
-	const filePath = "schemas/user-feedback-part-2.json";
+	const filePath = "schemas/user-feedback-part-1.json";
 	const jsonData = await retrieveFile(filePath);
 	console.log("JSON Data:", jsonData);
 

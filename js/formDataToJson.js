@@ -20,7 +20,7 @@ function getSelectedOptions(options) {
 
 async function populateCodeJson(data) {
     try {
-        const filePath = "schemas/user-feedback-part-2.json";
+        const filePath = "schemas/user-feedback-part-1.json";
         const schema = await retrieveFile(filePath);
        
         if (!schema || !schema.properties) {

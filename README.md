@@ -1,14 +1,14 @@
 # Content and Tools Evaluation Survey
 
-A web form to evaluate documentation clarity and user confidence in using checklist areas for repository reparation.
+A web form to evaluate documentation clarity and user confidence in figuring out tier, benefits and risks
 
-https://dsacms.github.io/outbound-tools-survey-2/
+https://dsacms.github.io/outbound-understanding-survey-1/
 
 ## About the Project
 
 A comprehensive survey form where users evaluate the clarity of documentation sections and provide feedback on their confidence in completing various repository preparation tasks. The survey is designed to gather insights about documentation effectiveness and identify areas for improvement in our content and tools.
 
-https://dsacms.github.io/outbound-tools-survey-2/
+https://dsacms.github.io/outbound-understanding-survey-1/
 
 This survey uses [Form.io](https://github.com/formio/uswds) for form generation and works with any JSON schema. The current implementation focuses on evaluating checklist sections including code review, licensing, security documentation, and repository preparation processes.
 
