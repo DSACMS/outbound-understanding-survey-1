@@ -1,16 +1,61 @@
-# codejson-generator
+# Content and Tools Evaluation Survey
 
-Form to generate a CMS code.json
+A web form to evaluate documentation clarity and user confidence in using checklist areas for repository reparation.
 
-https://dsacms.github.io/codejson-generator/
+https://dsacms.github.io/outbound-tools-survey-2/
 
 ## About the Project
 
-A web form where project teams fill out information about their project and creates a completed code.json for local download to add to repositories. [Form.io](https://github.com/formio/uswds) is used for form generation.
+A comprehensive survey form where users evaluate the clarity of documentation sections and provide feedback on their confidence in completing various repository preparation tasks. The survey is designed to gather insights about documentation effectiveness and identify areas for improvement in our content and tools.
 
-https://dsacms.github.io/codejson-generator/
+https://dsacms.github.io/outbound-tools-survey-2/
 
-To produce the form, a JSON schema is ingested where it transforms each field to a Form.io component. At the moment, this is used for code.json, however this works for any JSON schema!
+This survey uses [Form.io](https://github.com/formio/uswds) for form generation and works with any JSON schema. The current implementation focuses on evaluating checklist sections including code review, licensing, security documentation, and repository preparation processes.
+
+## Survey Sections
+
+The Content and Tools Evaluation Survey consists of four main sections:
+
+### Section I: Checklist Clarity Ratings
+
+- Code Review section clarity
+- Code Analysis and Code Analysis Toolkit clarity
+- Licensing, Commit History, and README.md clarity
+- Community documentation (COMMUNITY.md, CONTRIBUTING.md, SECURITY.md, CODE_OF_CONDUCT.md)
+- code.json documentation clarity
+
+### Section II: Documentation Experience Feedback
+
+- Time estimation for completing documentation tasks
+- Factors that slow down completion
+- Identification of repetitive or unnecessary sections
+- Clarity of comments, terms, and instructions
+- Understanding of risk acceptance concepts
+
+### Section III: Confidence Ratings
+
+- Confidence in completing Project Metadata
+- Confidence in Repository Details preparation
+- Understanding of Risk Acceptance for open sourcing
+- Confidence in making repositories public
+
+### Section IV: Qualitative Feedback
+
+- Most challenging sections to understand
+- Unclear or missing steps
+- Improvement suggestions
+- Overall information clarity assessment
+
+## Features
+
+- **Local Storage**: Save and retrieve survey responses locally
+- **Data Management**: Delete saved responses when needed
+- **Export Options**:
+  - Copy results to clipboard
+  - Download results as a file
+  - Email results directly
+- **Progress Tracking**: Save partial responses and continue later
+
 
 <!---
 ### Project Vision

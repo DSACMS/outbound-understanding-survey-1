@@ -86,9 +86,9 @@ function emailFile(data) {
         const subject = "Form Submission Results";
         const body = `Hello,\n\nHere are my survey results:\n\n${jsonString}\n\nThank you!`;
 
-        const recipient = "dinne.kopelevich@cms.hhs.gov";
+        const recipients = ["dinne.kopelevich@cms.hhs.gov", "opensource@cms.hhs.gov"];
 
-        const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
         window.location.href = mailtoLink;
 
