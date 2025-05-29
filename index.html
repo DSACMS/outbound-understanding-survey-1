@@ -1,5 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
+		<title>User Feedback Form 2</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Uses bootstrap for now -->
 		<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 		<link rel="stylesheet" href="css/styles.css">
@@ -112,10 +115,10 @@
 									behavior: 'smooth'
 								});
 
-								//Save Submission??
+								//Save Submission
 								if (localStorage.getItem('userFormProgress')) {
 									setTimeout(() => {
-										showConfirmationModal(
+										showConfirmModal(
 											"Would you like to delete your saved progress now that you've submitted the form?",
 											function() {
 												localStorage.removeItem('userFormProgress');
