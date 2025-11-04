@@ -2,23 +2,23 @@
   "name": "outbound-understanding-survey-1",
   "version": "",
   "description": "A web form to evaluate documentation clarity and user confidence in figuring out tier, benefits and risks",
-  "longDescription": "A web form where project teams fill out information about their project and creates a completed code.json for local download to add to repositories.",
+  "longDescription": "A survey where project teams fill out information about their experience using the OSPO outbound review checklist and repo-scaffolder for repository hygiene. This form focuses on the tier determination section as well as benefits & risk evaluation.",
   "status": "Production",
   "permissions": {
-    "license": [
+    "licenses": [
       {
-        "name": "CC0 1.0 Universal",
+        "name": "CC0-1.0",
         "URL": "https://github.com/DSACMS/codejson-generator/blob/main/LICENSE"
       }
     ],
-    "usageType": "openSource",
+    "usageType": ["openSource"],
     "exemptionText": ""
   },
   "organization": "Centers for Medicare & Medicaid Services",
   "repositoryURL": "https://github.com/DSACMS/outbound-understanding-survey-1",
   "repositoryHost": "github.com/DSACMS",
   "repositoryVisibility": "public",
-  "homepageURL": "",
+  "homepageURL": "https://dsacms.github.io/outbound-understanding-survey-1/",
   "downloadURL": "",
   "disclaimerURL": "",
   "disclaimerText": "",
@@ -67,15 +67,15 @@
   "localisation": false,
   "repositoryType": "website",
   "userInput": false,
-  "fismaLevel": "Low",
+  "fismaLevel": "low",
   "group": "CMS/OA/DSAC",
-  "projects": [],
+  "projects": ["outbound"],
   "systems": [],
   "subsetInHealthcare": [
-    "Operational"
+    "operational"
   ],
   "userType": [
-    "Government"
+    "government"
   ],
   "maturityModelTier": 3
 }
